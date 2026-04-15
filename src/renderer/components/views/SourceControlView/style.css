@@ -1,0 +1,519 @@
+/* Source Control View Styles */
+
+.aux-view {
+    /* This style is for collapsible sections */
+    font-size: 11px;
+    font-weight: 600;
+    color: #cccccc;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.aux-view-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.aux-view-header:hover {
+    background-color: rgba(137, 137, 137, 0.1);
+}
+
+.aux-view-header .codicon {
+    font-size: 10px !important;
+    min-width: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aux-view-title {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.aux-view-content {
+    /* By default, sections are expanded (no 'display: none') */
+    padding: 0 10px 10px;
+    font-size: 13px;
+    color: #8f8f8f;
+    font-weight: 400;
+    flex: 1;
+}
+
+/* Fix for Source Control View layout to prevent global scrollbar */
+#source-control-view .aux-view-content {
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Specific styles for the empty state message */
+.source-control-message-container {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.scm-message {
+    color: #cccccc;
+    margin-bottom: 16px;
+    line-height: 1.4;
+    font-size: 13px;
+}
+
+/* Standard button styles */
+.source-control-btn,
+.source-control-btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.source-control-btn {
+    background-color: #2b2d2e;
+    color: #cccccc;
+}
+
+.source-control-btn:hover {
+    background-color: #37373d;
+}
+
+/* Primary Blue Button Style */
+.source-control-btn-primary {
+    background-color: #007fd4;
+    color: #ffffff;
+}
+
+.source-control-btn-primary:hover {
+    background-color: #026ec1;
+}
+
+.scm-docs-message {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #cccccc;
+    line-height: 1.4;
+}
+
+.scm-docs-message a {
+    color: #3794FF;
+    text-decoration: none;
+}
+
+.scm-docs-message a:hover {
+    text-decoration: underline;
+}
+
+/* Header actions (if we add them later) */
+.source-control-header-actions {
+    margin-left: auto;
+    /* Push to right */
+    display: flex;
+    gap: 4px;
+}
+
+.action-icon {
+    padding: 2px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ... existing styles ... */
+
+/* Scanning State */
+.scm-scanning-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: #cccccc;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.scm-scanning-text {
+    margin-left: 8px;
+}
+
+/* No Repo State */
+.scm-no-repo-container {
+    padding: 10px 20px;
+}
+
+/* Repo Active State / File List */
+.scm-changes-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.scm-input-container {
+    padding: 10px;
+    background-color: #252526;
+    border-bottom: 1px solid #3e3e3e;
+}
+
+.scm-commit-input {
+    width: 100%;
+    background-color: #3c3c3c;
+    color: #cccccc;
+    border: 1px solid #3c3c3c;
+    padding: 6px 45px 6px 6px;
+    /* Increased right padding to clear icon */
+    font-size: 13px;
+    resize: none;
+    min-height: 32px;
+    font-family: inherit;
+    /* Ensure placeholder truncates properly */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* We need to apply this to the placeholder specifically if possible, 
+   but standard CSS inputs handles text-overflow only on value.
+   The user wants the placeholder "..." like the image. */
+.scm-commit-input::placeholder {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #8c8c8c;
+}
+
+.scm-commit-input:focus {
+    outline: 1px solid #007fd4;
+    border-color: #007fd4;
+}
+
+.scm-commit-btn-main {
+    flex: 1;
+    background-color: #C3C3C3;
+    /* Lighter Gray from image */
+    color: #000000;
+    /* Dark text for contrast */
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.scm-commit-btn-main:hover {
+    background-color: #d4d4d4;
+}
+
+.scm-commit-btn-arrow {
+    width: 28px;
+    background-color: #C3C3C3;
+    /* Matching lighter gray */
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    /* Subtle separator */
+}
+
+.scm-commit-btn-arrow:hover {
+    background-color: #d4d4d4;
+}
+
+.scm-group-header {
+    display: flex;
+    align-items: center;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #cccccc;
+    background-color: transparent;
+    /* Changed from fixed color to transparent */
+    cursor: pointer;
+    user-select: none;
+}
+
+.scm-group-header:hover {
+    background-color: rgba(90, 93, 94, 0.31);
+}
+
+.scm-file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.scm-file-item {
+    display: flex;
+    align-items: center;
+    padding: 3px 10px 3px 20px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #cccccc;
+}
+
+.scm-file-item:hover {
+    background-color: #2a2d2e;
+}
+
+.scm-file-icon {
+    margin-right: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.scm-file-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.scm-file-path {
+    margin-left: 8px;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.scm-badge {
+    margin-left: 8px;
+    font-size: 11px;
+    font-weight: bold;
+    min-width: 14px;
+    text-align: center;
+}
+
+.scm-badge.A,
+.scm-badge.U {
+    color: #73c991;
+}
+
+/* Added/Untracked - Green */
+.scm-badge.M {
+    color: #E2C08D;
+}
+
+/* Modified - Yellow/Orange */
+.scm-badge.D {
+    color: #F14C4C;
+    text-decoration: line-through;
+}
+
+/* Deleted - Red + Strikethrough */
+.scm-badge.R {
+    color: #E2C08D;
+}
+
+/* Renamed - Similar to Modified */
+
+/* Spinner Animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.codicon-loading {
+    animation: spin 1s linear infinite;
+}
+
+/* Ensure explorer view buttons match new structure */
+.source-control-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 6px 12px;
+    background-color: #2b2d2e;
+    color: #cccccc;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.source-control-btn:hover {
+    background-color: #37373d;
+}
+
+#scm-clone-repo-btn {
+    background-color: #2b2d2e;
+}
+
+/* ... existing styles ... */
+
+.scm-resizer {
+    height: 4px;
+    background-color: transparent;
+    cursor: row-resize;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+    z-index: 10;
+    margin-top: -2px;
+    /* Slight overlap for easier grabbing */
+    margin-bottom: -2px;
+    position: relative;
+}
+
+.scm-resizer:hover,
+.scm-resizer.active {
+    background-color: #007fd4;
+    /* VS Code blue focus color */
+}
+
+/* Custom Scrollbar specifically for the File List (Changes) */
+/* Higher specificity to override the global hiding rule below */
+#source-control-view .scm-file-list::-webkit-scrollbar,
+#source-control-view .scm-commit-input::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    display: block;
+    /* Ensure visibility */
+}
+
+/* Ensure track is transparent but exists */
+#source-control-view .scm-file-list::-webkit-scrollbar-track,
+#source-control-view .scm-commit-input::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Ensure thumb is visible */
+#source-control-view .scm-file-list::-webkit-scrollbar-thumb,
+#source-control-view .scm-commit-input::-webkit-scrollbar-thumb {
+    background-color: #424242;
+    border-radius: 5px;
+    border: none;
+}
+
+#source-control-view .scm-file-list::-webkit-scrollbar-thumb:hover,
+#source-control-view .scm-commit-input::-webkit-scrollbar-thumb:hover {
+    background-color: #6e6e6e;
+    /* Lighter on hover for better visibility */
+}
+
+#source-control-view .scm-file-list::-webkit-scrollbar-thumb:active,
+#source-control-view .scm-commit-input::-webkit-scrollbar-thumb:active {
+    background-color: #bfbfbf;
+}
+
+/* Hide scrollbar for graph unless strictly needed, but design implies it's static or infinite scroll via specialized list */
+/* Reset global scrollbar to avoid double bars if any remained */
+#source-control-view *::-webkit-scrollbar {
+    width: 0px;
+    /* Hide by default for other elements to clean up UI */
+    background: transparent;
+}
+
+
+
+#source-control-view *::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#source-control-view *::-webkit-scrollbar-thumb {
+    background-color: #424242;
+    border: 0px solid transparent;
+    background-clip: content-box;
+    /* Optional: roundness matching some vs code themes, usually standard is square-ish */
+}
+
+#source-control-view *::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+#source-control-view *::-webkit-scrollbar-thumb:hover {
+    background-color: #4f4f4f;
+}
+
+#source-control-view *::-webkit-scrollbar-thumb:active {
+    background-color: #bfbfbf;
+}
+
+/* Ensure the file list takes up remaining space and scrolls independently if possible */
+.scm-changes-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    /* Prevent container itself from scrolling */
+}
+
+.scm-file-list-wrapper {
+    flex: 1;
+    /* Take all remaining vertical space */
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    /* CRITICAL: Allow this container to shrink so it doesn't push the graph down */
+    overflow: hidden;
+    /* essential for nested scrollable areas */
+}
+
+.scm-file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    /* Stretch to fill wrapper */
+}
+
+.scm-graph-section {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #2b2b2b;
+    background-color: #161616;
+    /* Ensure background is solid */
+    flex-shrink: 0;
+    /* CRITICAL: Prevent graph from shrinking when file list is long */
+    min-height: 100px;
+    /* Min height for graph */
+    /* Height will be controlled via JS inline style */
+}
+
+/* Ensure the path truncates properly if it's too long, to avoid forcing width expansion */
+.scm-file-path {
+    margin-left: 8px;
+    font-size: 0.9em;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* This might be necessary if parent flex behavior allows growing */
+    min-width: 0;
+    flex-shrink: 1;
+}

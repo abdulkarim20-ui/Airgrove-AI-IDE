@@ -1,0 +1,241 @@
+/* VoiceInput.css - Mic Animation and Listening UI Styles */
+
+.ai-listening-ui {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0; /* Allow shrinking to prevent pushing the right toolbar */
+    overflow: hidden;
+}
+
+.ai-listening-ui.hidden {
+    display: none !important;
+}
+
+.ai-listening-waves {
+    display: flex;
+    align-items: center;
+    gap: 1.5px;
+    height: 12px;
+    flex-shrink: 0; /* Waves should stay their size unless container is very small */
+    overflow: hidden; /* Truncate waves if they exceed container space */
+}
+
+.ai-listening-waves .wave {
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, #10b981, #34d399);
+    border-radius: 4px;
+    animation: wave-animation 1.2s ease-in-out infinite;
+    transform-origin: center;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Wave heights and delays ... (keeping as is or slightly adjusting) */
+.ai-listening-waves .wave:nth-child(1) {
+    animation-delay: 0.0s;
+    height: 60%;
+}
+
+.ai-listening-waves .wave:nth-child(2) {
+    animation-delay: 0.2s;
+    height: 100%;
+}
+
+.ai-listening-waves .wave:nth-child(3) {
+    animation-delay: 0.4s;
+    height: 70%;
+}
+
+.ai-listening-waves .wave:nth-child(4) {
+    animation-delay: 0.1s;
+    height: 90%;
+}
+
+.ai-listening-waves .wave:nth-child(5) {
+    animation-delay: 0.5s;
+    height: 50%;
+}
+
+.ai-listening-waves .wave:nth-child(6) {
+    animation-delay: 0.3s;
+    height: 100%;
+}
+
+.ai-listening-waves .wave:nth-child(7) {
+    animation-delay: 0.0s;
+    height: 80%;
+}
+
+.ai-listening-waves .wave:nth-child(8) {
+    animation-delay: 0.2s;
+    height: 60%;
+}
+
+.ai-listening-waves .wave:nth-child(9) {
+    animation-delay: 0.4s;
+    height: 90%;
+}
+
+.ai-listening-waves .wave:nth-child(10) {
+    animation-delay: 0.1s;
+    height: 100%;
+}
+
+.ai-listening-waves .wave:nth-child(11) {
+    animation-delay: 0.5s;
+    height: 70%;
+}
+
+.ai-listening-waves .wave:nth-child(12) {
+    animation-delay: 0.3s;
+    height: 60%;
+}
+
+.ai-listening-waves .wave:nth-child(13) {
+    animation-delay: 0.6s;
+    height: 80%;
+}
+
+.ai-listening-waves .wave:nth-child(14) {
+    animation-delay: 0.2s;
+    height: 100%;
+}
+
+.ai-listening-waves .wave:nth-child(15) {
+    animation-delay: 0.4s;
+    height: 70%;
+}
+
+.ai-listening-waves .wave:nth-child(16) {
+    animation-delay: 0.1s;
+    height: 90%;
+}
+
+.ai-listening-waves .wave:nth-child(17) {
+    animation-delay: 0.05s;
+    height: 60%;
+}
+
+.ai-listening-waves .wave:nth-child(18) {
+    animation-delay: 0.45s;
+    height: 80%;
+}
+
+.ai-listening-waves .wave:nth-child(19) {
+    animation-delay: 0.1s;
+    height: 100%;
+}
+
+.ai-listening-waves .wave:nth-child(20) {
+    animation-delay: 0.3s;
+    height: 70%;
+}
+
+.ai-listening-waves .wave:nth-child(21) {
+    animation-delay: 0.6s;
+    height: 50%;
+}
+
+.ai-listening-waves .wave:nth-child(22) {
+    animation-delay: 0.0s;
+    height: 90%;
+}
+
+.ai-listening-waves .wave:nth-child(23) {
+    animation-delay: 0.2s;
+    height: 60%;
+}
+
+.ai-listening-waves .wave:nth-child(24) {
+    animation-delay: 0.5s;
+    height: 100%;
+}
+
+.ai-listening-waves .wave:nth-child(25) {
+    animation-delay: 0.3s;
+    height: 80%;
+}
+
+.ai-listening-waves .wave:nth-child(26) {
+    animation-delay: 0.1s;
+    height: 60%;
+}
+
+.ai-listening-waves .wave:nth-child(27) {
+    animation-delay: 0.4s;
+    height: 90%;
+}
+
+@keyframes wave-animation {
+
+    0%,
+    100% {
+        transform: scaleY(0.4);
+    }
+
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+.ai-listening-text {
+    font-size: 13px;
+    color: #9ca3af;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.ai-listening-text::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    text-align: left;
+    animation: listening-dots 2s steps(4, end) infinite;
+}
+
+@keyframes listening-dots {
+    0% {
+        content: '';
+    }
+
+    25% {
+        content: '.';
+    }
+
+    50% {
+        content: '..';
+    }
+
+    75% {
+        content: '...';
+    }
+}
+
+
+/* Tick Button Styling */
+.ai-stop-listen-btn {
+    background-color: #2b2d31;
+    border: none;
+    color: #eeeeee;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    transition: background-color 0.1s;
+}
+
+.ai-stop-listen-btn:hover {
+    background-color: #3f4148;
+    color: #ffffff;
+}

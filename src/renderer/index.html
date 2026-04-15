@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; frame-src *;" />
+
+  <link href="../../node_modules/@vscode/codicons/dist/codicon.css" rel="stylesheet" />
+
+  <link href="styles/main.css" rel="stylesheet" />
+  <link href="./components/TitleBar/style.css" rel="stylesheet" />
+
+  <!-- NEW: Link the Activity Bar's stylesheet -->
+  <link href="./components/ActivityBar/style.css" rel="stylesheet" />
+
+
+  <link href="./components/StatusBar/style.css" rel="stylesheet" />
+
+  <link href="./components/Panel/style.css" rel="stylesheet" />
+  <link href="./components/Panel/style.css" rel="stylesheet" />
+  <link href="./components/EditorGroup/TabsBar/style.css" rel="stylesheet" />
+  <link href="./components/EditorGroup/Breadcrumbs/style.css" rel="stylesheet" />
+  <link href="./components/EditorGroup/EditorHint.css" rel="stylesheet" />
+  <link href="./components/EditorGroup/BinaryView.css" rel="stylesheet" />
+  <link href="./components/EditorGroup/ImageView/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./components/views/PreviewView/style.css">
+  <link rel="stylesheet" href="./components/views/McpManagerView/style.css">
+
+  <!-- NEW: Link the Primary Side Bar's stylesheet -->
+  <link href="./components/SideBar/PrimarySideBar/style.css" rel="stylesheet" />
+  <link href="./components/SideBar/AiSideBar/style.css" rel="stylesheet" />
+  <link href="./components/ai/ThinkingIndicator/thinking.css" rel="stylesheet" />
+  <link href="./components/MenuBar/style.css" rel="stylesheet" />
+  <link href="./components/ContextMenu/style.css" rel="stylesheet" />
+  <link href="./components/SideBar/AiSideBar/MentionMenu.css" rel="stylesheet" />
+  <link href="./components/SideBar/AiSideBar/VoiceInput.css" rel="stylesheet" />
+  <link href="./components/views/ExplorerView/style.css" rel="stylesheet" />
+  <link href="./components/views/SearchView/style.css" rel="stylesheet" />
+  <link href="./components/views/SourceControlView/style.css" rel="stylesheet" />
+  <link href="./components/views/RunDebugView/style.css" rel="stylesheet" />
+  <link href="./components/views/ExtensionsView/style.css" rel="stylesheet" />
+  <link href="./components/views/WelcomeView/style.css" rel="stylesheet" />
+  <link href="./components/QuickPick/style.css" rel="stylesheet" />
+  <link href="./styles/tooltip.css" rel="stylesheet" />
+  <link href="./styles/inline-edit-review.css" rel="stylesheet" />
+  <link href="./components/views/PreviewView/style.css" rel="stylesheet" />
+
+  <title>AirGrove IDE</title>
+</head>
+
+<body class="preload">
+  <div id="title-bar">
+    <img class="titlebar-logo" src="../../assets/icons/logo.png" />
+
+    <div class="menubar">
+      <div class="menubar-item" id="menubar-file-btn">File</div>
+      <div class="menubar-item" id="menubar-edit-btn">Edit</div>
+      <div class="menubar-item" id="menubar-selection-btn">Selection</div>
+      <div class="menubar-item" id="menubar-view-btn">View</div>
+      <div class="menubar-item" id="menubar-go-btn">Go</div>
+      <div class="menubar-item" id="menubar-run-btn">Run</div>
+      <div class="menubar-item" id="menubar-terminal-btn">Terminal</div>
+      <div class="menubar-item" id="menubar-help-btn">Help</div>
+    </div>
+
+    <!-- NEW: Select Project Section matching the image -->
+    <div class="titlebar-separator"></div>
+
+    <div class="project-selector">
+      <span class="project-name">Select Project</span>
+      <i class="codicon codicon-chevron-down"></i>
+    </div>
+
+    <div class="titlebar-separator"></div>
+    <!-- END: Select Project Section -->
+
+    <!-- Navigation arrows moved to layout-controls -->
+
+    <div class="titlebar-search">
+      <div class="titlebar-search-container">
+        <div class="search-placeholder">
+          <i class="codicon codicon-search"></i>
+          <span>Search</span>
+        </div>
+        <input type="text" />
+      </div>
+    </div>
+
+    <div class="layout-controls">
+      <!-- NEW: Navigation Arrows added here as per request -->
+      <div class="layout-control-button" title="Go Back">
+        <i class="codicon codicon-arrow-left"></i>
+      </div>
+      <div class="layout-control-button" title="Go Forward">
+        <i class="codicon codicon-arrow-right"></i>
+      </div>
+      <div class="titlebar-separator"></div>
+
+      <div class="layout-control-button" id="toggle-primary-sidebar-btn" title="Toggle Primary Side Bar (Ctrl+B)">
+        <i class="codicon codicon-layout-sidebar-left"></i>
+      </div>
+      <div class="layout-control-button" id="toggle-panel-btn" title="Toggle Panel (Ctrl+J)">
+        <i class="codicon codicon-layout-panel"></i>
+      </div>
+      <div class="layout-control-button" id="toggle-secondary-sidebar-btn" title="Toggle AI Side Bar">
+        <i class="codicon codicon-layout-sidebar-right"></i>
+      </div>
+      <div class="layout-control-button" title="Manage">
+        <i class="codicon codicon-settings-gear"></i>
+      </div>
+      <div class="layout-control-button" title="Accounts">
+        <i class="codicon codicon-account"></i>
+      </div>
+    </div>
+
+    <div class="titlebar-separator"></div>
+
+    <div class="window-controls">
+      <div class="window-control-button" id="minimize-btn"><i class="codicon codicon-chrome-minimize"></i></div>
+      <div class="window-control-button" id="maximize-btn"><i class="codicon codicon-chrome-maximize"></i></div>
+      <div class="window-control-button window-close-btn" id="close-btn"><i class="codicon codicon-chrome-close"></i>
+      </div>
+    </div>
+  </div>
+  <div class="workbench">
+    <!-- START: Activity Bar HTML -->
+    <div id="activity-bar-container">
+      <div class="action-items-container">
+        <div class="action-item" title="Explorer (Ctrl+Shift+E)" data-view="explorer"><i
+            class="codicon codicon-files"></i></div>
+        <div class="action-item" title="Search (Ctrl+Shift+F)" data-view="search"><i class="codicon codicon-search"></i>
+        </div>
+        <div class="action-item" title="Source Control (Ctrl+Shift+G)" data-view="source-control"><i
+            class="codicon codicon-source-control"></i></div>
+        <div class="action-item" title="Preview" data-view="preview">
+          <img src="../../assets/modified_icons/eye-line.svg" class="activity-icon-svg" width="20" height="20" />
+        </div>
+        <div class="action-item" title="Run and Debug (Ctrl+Shift+D)" data-view="run-debug"><i
+            class="codicon codicon-debug-alt"></i></div>
+        <div class="action-item" title="Extensions (Ctrl+Shift+X)" data-view="extensions"><i
+            class="codicon codicon-extensions"></i></div>
+      </div>
+      <!-- Bottom items moved to Title Bar -->
+    </div>
+    <!-- END: Activity Bar HTML -->
+
+    <!-- Primary Side Bar container -->
+    <div id="primary-sidebar-container">
+      <div id="primary-sidebar-resizer"></div>
+      <div class="sidebar-header">
+        <div class="sidebar-title"></div>
+        <div class="sidebar-header-actions">
+          <div class="action-icon" title="More Actions..."><i class="codicon codicon-ellipsis"></i></div>
+        </div>
+      </div>
+
+      <div id="sidebar-view-container">
+        <div id="explorer-view" class="view">
+          <div class="aux-view expanded" id="no-folder-view">
+            <div class="aux-view-header">
+              <i class="codicon codicon-chevron-down"></i>
+              <span class="aux-view-title">NO FOLDER OPENED</span>
+            </div>
+            <div class="aux-view-content">
+              <div class="no-folder-message">
+                <span class="no-folder-message-header">You have not yet opened a folder.</span>
+                <button class="open-folder-btn">Open Folder</button>
+                <span class="no-folder-message-detail">
+                  Opening a folder will close all currently open editors.
+                  To keep them open, <strong>add a folder</strong> instead.
+                </span>
+                <span class="no-folder-message-detail">
+                  You can clone a repository locally.
+                </span>
+                <button class="source-control-btn" id="explorer-clone-repo-btn">
+                  <span>Clone Repository</span>
+                </button>
+                <span class="no-folder-message-detail">
+                  To learn more about how to use Git and source control in VS Code read our <a href="#">docs</a>.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="search-view" class="view">
+          <div class="search-view-container">
+            <div class="aux-view search-main-section expanded">
+              <div class="aux-view-header search-view-header">
+                <span class="aux-view-title">Search</span>
+                <div class="search-header-actions">
+                  <div class="action-icon" title="Refresh"><i class="codicon codicon-refresh"></i></div>
+                  <div class="action-icon" title="Clear Search Results"><i class="codicon codicon-clear-all"></i></div>
+                  <div class="action-icon" title="Open New Search Editor"><i class="codicon codicon-new-file"></i></div>
+                  <div class="action-icon" title="View as Tree"><i class="codicon codicon-list-tree"></i></div>
+                  <div class="action-icon" title="Collapse All"><i class="codicon codicon-collapse-all"></i></div>
+                </div>
+              </div>
+              <div class="aux-view-content search-view-content">
+                <div class="search-inputs-wrapper">
+                  <i class="codicon codicon-chevron-right" id="search-replace-toggle" title="Toggle Replace"></i>
+                  <div class="inputs-column">
+                    <div class="search-input-container">
+                      <div class="input-wrapper">
+                        <input type="text" placeholder="Search" class="search-input">
+                        <div class="input-actions">
+                          <i class="codicon codicon-case-sensitive" title="Match Case"></i>
+                          <i class="codicon codicon-whole-word" title="Match Whole Word"></i>
+                          <i class="codicon codicon-regex" title="Use Regular Expression"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="replace-input-container hidden">
+                      <div class="input-wrapper">
+                        <input type="text" placeholder="Replace" class="replace-input">
+                        <div class="input-actions internal">
+                          <i class="codicon codicon-preserve-case" title="Preserve Case"></i>
+                        </div>
+                      </div>
+                      <div class="replace-actions">
+                        <i class="codicon codicon-replace-all replace-all-action" title="Replace All"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="search-no-folder-message">
+                  <span>You have not opened or specified a folder. Only open files are currently searched -
+                    <a href="#" id="search-open-folder-link">Open Folder</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="source-control-view" class="view">
+          <div class="aux-view expanded" style="height: 100%;">
+            <div class="aux-view-content">
+              <div class="source-control-message-container">
+                <p class="scm-message">In order to use Git features, you can open a folder containing a Git repository
+                  or
+                  clone from a URL.</p>
+
+                <button class="source-control-btn" id="scm-open-folder-btn">Open Folder</button>
+
+                <button class="source-control-btn" id="scm-clone-repo-btn">
+                  <span>Clone Repository</span>
+                </button>
+
+                <p class="scm-docs-message">
+                  To learn more about how to use Git and source control in VS Code <a href="#">read our docs</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="run-debug-view" class="view">
+          <div class="run-debug-message-container">
+            <p class="rd-message"><a href="#" id="rd-open-file-link">Open a file</a> which can be debugged or run.</p>
+
+            <button class="run-debug-btn" id="rd-run-debug-btn">Run and Debug</button>
+
+            <p class="rd-message">To customize Run and Debug, <a href="#">open a folder</a> and create a <a
+                href="#">launch.json file</a>.</p>
+
+            <p class="rd-message">Debug using a <a href="#">terminal command</a> or in an <a href="#">interactive
+                chat</a>.</p>
+          </div>
+        </div>
+
+        <div id="extensions-view" class="view">
+          <div class="aux-view-header extensions-view-header">
+            <span class="aux-view-title">EXTENSIONS</span>
+            <div class="extensions-header-actions">
+              <div class="action-icon" title="Refresh"><i class="codicon codicon-refresh"></i></div>
+              <div class="action-icon" title="More Actions..."><i class="codicon codicon-ellipsis"></i></div>
+            </div>
+          </div>
+
+          <div class="extensions-search-container">
+            <div class="input-wrapper">
+              <input type="text" placeholder="Search Extensions in Marketplace" class="search-input">
+              <div class="input-actions">
+                <i class="codicon codicon-clear-all" title="Clear Extension Search Results"></i>
+                <i class="codicon codicon-filter" title="Filter"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="extensions-list-container">
+            <div class="aux-view">
+              <div class="aux-view-header">
+                <i class="codicon codicon-chevron-right"></i>
+                <span class="aux-view-title">INSTALLED</span>
+              </div>
+              <div class="aux-view-content">
+                <div class="extension-placeholder">Code Runner</div>
+                <div class="extension-placeholder">Dracula Theme Official</div>
+                <div class="extension-placeholder">NVIDIA AI Toolkit</div>
+              </div>
+            </div>
+            <div class="aux-view">
+              <div class="aux-view-header">
+                <i class="codicon codicon-chevron-right"></i>
+                <span class="aux-view-title">RECOMMENDED</span>
+              </div>
+              <div class="aux-view-content">
+                <div class="extension-placeholder">Container Tools</div>
+                <div class="extension-placeholder">npm Intellisense</div>
+                <div class="extension-placeholder">Debugger for Firefox</div>
+              </div>
+            </div>
+            <div class="aux-view">
+              <div class="aux-view-header">
+                <i class="codicon codicon-chevron-right"></i>
+                <span class="aux-view-title">MCP SERVERS - INSTALLED</span>
+              </div>
+              <div class="aux-view-content">
+                <div class="extension-placeholder">markdown</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="sidebar-auxiliary-container">
+        <div class="aux-view" id="outline-view">
+          <div class="aux-view-header">
+            <i class="codicon codicon-chevron-right"></i>
+            <span class="aux-view-title">OUTLINE</span>
+          </div>
+          <div class="aux-view-content">
+          </div>
+        </div>
+        <div class="aux-view" id="timeline-view">
+          <div class="aux-view-header">
+            <i class="codicon codicon-chevron-right"></i>
+            <span class="aux-view-title">TIMELINE</span>
+          </div>
+          <div class="aux-view-content">
+          </div>
+        </div>
+      </div>
+      <div id="sidebar-resizer"></div>
+    </div>
+
+    <div id="editor-container">
+      <div id="breadcrumbs-container"></div>
+
+      <div id="welcome-view-container" class="hidden">
+        <div class="welcome-content">
+          <!-- Central Logo -->
+          <div class="welcome-hero">
+            <img src="../../assets/icons/wel_applogo.png" alt="AirGrove" class="welcome-logo" />
+            <h1 class="welcome-title">irgrove</h1>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="welcome-actions">
+            <button class="welcome-btn primary full-width" id="welcome-open-folder">
+              <i class="codicon codicon-folder-opened"></i>
+              <span>Open Folder</span>
+            </button>
+            <div class="welcome-actions-row">
+              <button class="welcome-btn primary" id="welcome-new-file">
+                <i class="codicon codicon-new-file"></i>
+                <span>New File</span>
+              </button>
+              <button class="welcome-btn primary" id="welcome-clone-repo">
+                <i class="codicon codicon-source-control"></i>
+                <span>Clone Repository</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Workspaces -->
+          <div class="welcome-recents" id="recent-section">
+            <div class="recents-header">
+              <span>Workspaces</span>
+            </div>
+            <div id="recent-folders-list" class="recents-list">
+              <!-- Dynamically populated -->
+            </div>
+            <div id="no-recent-folders" class="recents-empty">
+              <span>No recent workspaces</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="secondary-sidebar-container">
+      <div id="secondary-sidebar-resizer"></div>
+
+      <!-- Header -->
+      <div class="ai-header">
+        <div class="ai-title">AGENT</div>
+        <div class="ai-header-controls">
+          <div class="ai-icon-btn" title="New Chat"><img src="../../assets/modified_icons/plus.svg"
+              class="menu-icon-img" alt="New Chat" /></div>
+          <div class="ai-icon-btn" title="History"><i class="codicon codicon-history"></i></div>
+          <div class="plus-menu-container">
+            <div class="ai-icon-btn" id="ai-more-actions-btn" title="Advance options">
+              <i class="codicon codicon-ellipsis"></i>
+            </div>
+            <div class="plus-dropdown-menu mcp-dropdown-menu hidden" style="top: 100%; bottom: auto; right: 0; left: auto; padding-right: 6px;">
+              <div class="plus-menu-item" id="mcp-menu-server-btn">
+                <div class="mcp-dropdown-icon"></div>
+                <span>MCP server</span>
+              </div>
+            </div>
+          </div>
+          <div class="ai-icon-btn" id="close-ai-sidebar-btn" title="Close"><i class="codicon codicon-close"></i></div>
+        </div>
+      </div>
+
+      <!-- Empty State / Chat Area -->
+      <div class="ai-content-area empty">
+        <div class="ai-empty-state">
+          <div class="ai-empty-logo-container">
+            <img src="../../assets/icons/wel_applogo.png" alt="AirGrove Logo" />
+          </div>
+          <h2 class="ai-empty-title">Build Beyond <span class="highlight">Limits</span></h2>
+          <p class="ai-empty-desc">
+            Transform ideas into scalable solutions with advanced AI capabilities.
+          </p>
+        </div>
+        <!-- Chat messages would be appended here dynamically -->
+        <div class="ai-messages-list hidden"></div>
+
+      </div>
+      <!-- Moved Input Area Below Content Area for fixed positioning at the bottom -->
+      <div class="ai-input-section">
+        <div class="ai-input-box">
+          <div id="ai-mention-menu" class="hidden"></div>
+          <div id="ai-attachment-preview" class="ai-attachment-preview hidden"></div>
+          <textarea class="ai-main-input" placeholder="You are chatting with AirGrove now"></textarea>
+
+          <div class="ai-input-toolbar">
+            <div class="toolbar-group left">
+              <div class="plus-menu-container">
+                <button class="tool-btn" id="ai-plus-btn" title="Add Context">
+                  <img src="../../assets/modified_icons/plus.svg" class="menu-icon-img" alt="Add Context" />
+                </button>
+                <div class="plus-dropdown-menu hidden">
+                  <div class="plus-menu-item" id="plus-menu-media">
+                    <img src="../../assets/modified_icons/attachment.svg" class="menu-icon-img"
+                      alt="Add Photos & Files" />
+                    <span>Add photos & files</span>
+                  </div>
+                  <div class="plus-menu-item" id="plus-menu-mentions">
+                    <img src="../../assets/icons/mention.png" class="menu-icon-img" alt="Mentions" />
+                    <span>Mentions</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Listening UI (Left side) -->
+              <div class="ai-listening-ui hidden">
+                <div class="ai-listening-waves">
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                </div>
+                <span class="ai-listening-text">Hearing You</span>
+              </div>
+            </div>
+
+            <div class="toolbar-group right">
+              <div class="model-selector normal-ui">
+                <div class="model-dropdown">
+                  <span class="current-model">MiniMax M2.5 (NVIDIA)</span>
+                  <i class="codicon codicon-chevron-down"></i>
+                </div>
+                <div class="model-dropdown-menu hidden"></div>
+              </div>
+
+              <button class="ai-mic-btn normal-ui" id="ai-mic-btn" title="Voice Input">
+                <img src="../../assets/modified_icons/mic.svg" width="16" height="16" />
+              </button>
+
+              <!-- Tick Button (Appears in same position as Mic when listening) -->
+              <button class="ai-stop-listen-btn hidden" id="ai-stop-listen-btn" title="Done">
+                <img src="../../assets/modified_icons/check.svg" width="16" height="16" alt="Done" />
+              </button>
+
+              <button class="send-submit-btn" disabled>
+                <img src="../../assets/modified_icons/arrow-up.svg" class="send-icon" alt="Send" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div id="panel-container" class="hidden">
+      <div id="panel-resizer"></div>
+      <div class="panel-header">
+        <div class="panel-tabs">
+          <span class="tab">Problems</span>
+          <span class="tab">Output</span>
+          <span class="tab">Debug Console</span>
+          <span class="tab active">Terminal</span>
+          <span class="tab">Ports</span>
+        </div>
+
+        <div class="panel-actions">
+          <div class="action-group" id="terminal-actions">
+            <div class="compound-button" title="New Terminal">
+              <i id="new-terminal-btn" class="codicon codicon-add"></i>
+              <i class="codicon codicon-chevron-down"></i>
+            </div>
+            <i id="split-panel-btn" class="codicon codicon-split-horizontal" title="Split Terminal"></i>
+            <i id="kill-panel-btn" class="codicon codicon-trash" title="Kill Terminal"></i>
+            <i class="codicon codicon-ellipsis" title="More Actions..."></i>
+          </div>
+
+          <div class="action-group hidden" id="output-actions">
+            <div class="output-filter-container">
+              <input type="text" placeholder="Filter (e.g. text, !exclude...)" class="output-filter-input">
+            </div>
+            <div class="output-channel-selector" title="Switch Output Channel">
+              <span>Code</span>
+              <i class="codicon codicon-chevron-down"></i>
+            </div>
+            <i class="codicon codicon-clear-all" title="Clear Output"></i>
+            <i class="codicon codicon-lock" title="Toggle Auto-Scroll"></i>
+            <i class="codicon codicon-ellipsis" title="More Actions..."></i>
+          </div>
+
+          <div class="action-separator"></div>
+
+          <div class="action-group">
+            <i id="maximize-panel-btn" class="codicon codicon-chevron-up" title="Maximize Panel Size"></i>
+            <i id="close-panel-btn" class="codicon codicon-close" title="Close Panel"></i>
+          </div>
+        </div>
+      </div>
+      <div id="panel-content">
+        <div id="terminal-container"></div>
+        <div class="sidebar-resizer" id="terminal-internal-sidebar-resizer"></div>
+        <div class="terminal-sidebar">
+          <ul id="terminal-list" class="terminal-list">
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="statusbar-container">
+      <div class="statusbar-section statusbar-left">
+        <div class="statusbar-item" id="remote-status-item" title="Open a remote window">
+          <i class="codicon codicon-remote"></i>
+        </div>
+        <div class="statusbar-item" title="No Problems">
+          <i class="codicon codicon-error"></i>
+          <span>0</span>
+          <i class="codicon codicon-warning"></i>
+          <span>0</span>
+        </div>
+      </div>
+      <div class="statusbar-section statusbar-right">
+        <div class="statusbar-item" id="cursor-status" title="Go to Line/Column">Ln 1, Col 1</div>
+        <div class="statusbar-item" id="language-status" title="Select Language Mode">Plaintext</div>
+        <div class="statusbar-item" title="Notifications">
+          <i class="codicon codicon-bell"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../node_modules/monaco-editor/min/vs/loader.js"></script>
+  <script type="module" src="index.js"></script>
+
+  <script type="module" src="./components/TitleBar/index.js"></script>
+
+  <!-- Load the Activity Bar logic script (now handles sidebar management) -->
+  <script type="module" src="./components/ActivityBar/WorkbenchManager.js"></script>
+
+  <script type="module" src="./components/views/ExplorerView/index.js"></script>
+  <script type="module" src="./components/views/SearchView/index.js"></script>
+  <script type="module" src="./components/views/SourceControlView/index.js"></script>
+  <script type="module" src="./components/views/RunDebugView/index.js"></script>
+  <script type="module" src="./components/views/ExtensionsView/index.js"></script>
+  <script type="module" src="./components/views/WelcomeView/index.js"></script>
+  <script type="module" src="./components/MenuBar/index.js"></script>
+  <script type="module" src="./components/SideBar/PrimarySideBar/AuxViews.js"></script>
+  <script type="module" src="./components/Panel/terminal.js"></script>
+  <script type="module" src="./components/Panel/PanelManager.js"></script>
+  <script type="module" src="./components/SideBar/AiSideBar/AiSideBar.js"></script>
+  <script type="module" src="./components/StatusBar/index.js"></script>
+</body>
+
+</html>

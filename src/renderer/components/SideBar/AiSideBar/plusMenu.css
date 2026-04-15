@@ -1,0 +1,112 @@
+/* Plus Button & Menu Styles */
+.plus-menu-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Plus Button Styling - Matches standard tool buttons */
+.rounded-btn {
+    border-radius: 4px;
+    /* Default small radius */
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    color: #6b7280;
+    /* Match generic icon color */
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.1s;
+}
+
+.rounded-btn:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.plus-dropdown-menu {
+    position: absolute;
+    bottom: 150%;
+    /* Position above the button */
+    left: 0;
+    background-color: #202123;
+    border: 1px solid #454545;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    z-index: 2000;
+    animation: fadeIn 0.1s ease-out;
+}
+
+.plus-dropdown-menu.hidden {
+    display: none;
+}
+
+.plus-menu-header {
+    padding: 6px 8px;
+    font-size: 11px;
+    color: #858585;
+    /* Label color */
+    font-weight: 500;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
+.plus-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #cccccc;
+    font-size: 13px;
+    transition: background-color 0.1s;
+}
+
+.plus-menu-item:hover {
+    background-color: #2a2d2e;
+    /* Hover state */
+    color: #ffffff;
+}
+
+.plus-menu-item i {
+    font-size: 14px;
+    width: 16px;
+    text-align: center;
+}
+
+.mcp-dropdown-icon {
+    width: 16px;
+    height: 16px;
+    background-color: currentColor;
+    -webkit-mask-image: url('../../../../../assets/modified_icons/mcp_server.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+}
+
+.menu-icon-img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

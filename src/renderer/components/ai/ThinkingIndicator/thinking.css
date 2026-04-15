@@ -1,0 +1,49 @@
+.ai-thinking {
+  background: #242628;
+  border: 1px solid #2d2e32;
+  border-radius: 8px;
+  padding: 5px 12px 5px 6px;
+  display: inline-flex;
+  align-items: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  animation: fadeIn 0.25s ease;
+  width: fit-content;
+}
+
+/* spinner */
+.ai-spin {
+  width: 19px;
+  text-align: center;
+  font-size: 15px;
+  
+  /* Gradient logic */
+  background: linear-gradient(45deg, #10b981, #22c55e, #3b82f6, #facc15, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* text with sweep animation */
+.ai-text {
+  margin-left: 6px;
+  display: flex;
+  align-items: baseline;
+  font-size: 12px;
+  font-family: "SF Pro Text", "Segoe WPC", "Segoe UI", sans-serif;
+  color: #D1D3DB;
+}
+
+/* dots */
+.ai-dots::after {
+  content: '...';
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

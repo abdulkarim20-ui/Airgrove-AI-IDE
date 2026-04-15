@@ -1,0 +1,101 @@
+.ag-inline-added-line {
+    background: rgba(46, 160, 67, 0.25);
+}
+
+.ag-inline-removed-zone {
+    background: rgba(248, 81, 73, 0.25);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    white-space: pre;
+}
+
+.ag-inline-removed-zone > div {
+    font-family: inherit !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    background-color: transparent !important;
+}
+
+.ag-inline-removed-line {
+    white-space: pre;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.ag-inline-review-widget {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    z-index: 100;
+    background: #1e1e1e;
+    border: 1px solid #454545;
+    border-radius: 4px;
+    padding: 4px 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    user-select: none;
+}
+
+.ag-review-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    background: transparent;
+    color: #cccccc;
+    border-radius: 3px;
+    padding: 3px 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    transition: background 0.1s;
+}
+
+.ag-review-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.ag-review-accept {
+    background: #0078d4;
+    color: #ffffff;
+}
+
+.ag-review-accept:hover {
+    background: #0062ae;
+}
+
+.ag-review-shortcut {
+    opacity: 0.6;
+    font-size: 11px;
+    margin-left: 2px;
+}
+
+.ag-review-accept .ag-review-shortcut {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.ag-review-reject {
+    color: #cccccc;
+}
+
+.ag-review-icon-toggle {
+    color: #888;
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    border-radius: 3px;
+}
+
+.ag-review-icon-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+}

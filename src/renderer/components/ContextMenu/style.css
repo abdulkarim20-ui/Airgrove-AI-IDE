@@ -1,0 +1,112 @@
+/* 📄 FILE: src/renderer/components/ContextMenu/style.css */
+
+.context-menu {
+    position: fixed;
+    background-color: #202123;
+    border: 1px solid #454545;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    color: #cccccc;
+    font-family: "Segoe WPC", "Segoe UI", sans-serif;
+    font-size: 13px;
+    padding: 4px 0;
+    min-width: 220px;
+    z-index: 2000;
+    /* Ensure it's on top of everything */
+    opacity: 0;
+    transform: scale(0.95);
+    transform-origin: top left;
+    transition: opacity 0.08s ease-out, transform 0.08s ease-out;
+    pointer-events: none;
+}
+
+.context-menu.visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.context-menu-item,
+.context-menu-separator {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    /* Slightly tighter padding */
+}
+
+.context-menu-item {
+    justify-content: flex-start;
+    /* Ensure items start together */
+    height: 26px;
+    cursor: pointer;
+    gap: 0;
+    /* Reset gap to use specific icon margin instead */
+}
+
+.context-menu-item:hover {
+    background-color: #2a2d2e;
+    color: white;
+}
+
+.context-menu-item .codicon {
+    font-size: 14px;
+    /* Slightly smaller for precision */
+    width: 16px;
+    text-align: center;
+    margin-right: 10px;
+    color: #cccccc;
+    /* Default icon color */
+}
+
+.context-menu-item-label {
+    flex-grow: 1;
+}
+
+.context-menu-separator {
+    height: 1px;
+    background-color: #333333;
+    margin: 3px 0;
+    padding: 0;
+}
+
+.context-menu-item-shortcut {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    /* Reduced from 4px */
+    margin-left: auto;
+    padding-left: 20px;
+    color: #858585;
+    font-weight: normal;
+}
+
+.shortcut-key {
+    background-color: transparent;
+    color: #858585;
+    padding: 0px 4px;
+    /* Reduced padding */
+    border-radius: 3px;
+    font-size: 11px;
+    min-width: 14px;
+    text-align: center;
+    line-height: 1.4;
+    font-family: inherit;
+    border: 1px solid #454545;
+    font-weight: 600;
+}
+
+.shortcut-plus {
+    font-size: 10px;
+    opacity: 0.4;
+    margin: 0;
+}
+
+.shortcut-space {
+    width: 4px;
+}
+
+.context-menu-item:hover .shortcut-key {
+    background-color: transparent;
+    border-color: #707070;
+    color: #ffffff;
+}

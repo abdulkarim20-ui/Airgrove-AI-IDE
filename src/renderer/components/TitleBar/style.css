@@ -1,0 +1,409 @@
+#title-bar {
+  -webkit-app-region: drag;
+  height: 35px;
+  background-color: var(--bg-titlebar);
+  color: var(--fg-primary);
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  opacity: 0;
+  /* Start hidden */
+  transition: opacity 0.15s ease-in;
+}
+
+#title-bar.visible {
+  opacity: 1;
+}
+
+.titlebar-logo,
+.menubar,
+.titlebar-nav,
+.layout-controls,
+.window-controls {
+  flex-shrink: 0;
+  /* Prevent these elements from shrinking */
+  height: 100%;
+  /* Ensure full height coverage */
+}
+
+.titlebar-logo {
+  height: 22px;
+  width: 22px;
+  /* Increased container size */
+  margin: 0 2px 0 8px;
+  /* Reduced right margin to compensate for larger logo and keep menu bar position */
+  -webkit-app-region: no-drag;
+  background-color: transparent;
+  /* Transparent background to blend */
+  padding: 3px;
+  /* 3px padding = 16px icon (22 - 6) */
+  border-radius: 4px;
+  /* Rounded corners */
+  box-sizing: border-box;
+  /* Padding included in width/height - prevents menu shift */
+  object-fit: contain;
+  /* Preserve icon aspect ratio */
+}
+
+.menubar {
+  display: flex;
+  align-items: center;
+  -webkit-app-region: no-drag;
+  gap: 1px;
+  /* KEY CHANGE: Adds a consistent 2px gap between all menu items */
+}
+
+.menubar-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 8px;
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 4px;
+  cursor: default;
+  /* ADD THIS LINE */
+  user-select: none;
+  /* ADD THIS LINE to prevent text selection */
+}
+
+.menubar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menubar-icon-item {
+  padding: 4px 5px;
+  font-size: 16px;
+}
+
+/* --- The Final Positioning Fix --- */
+.titlebar-nav.hidden-nav {
+  display: none !important;
+}
+
+.titlebar-nav {
+  display: flex;
+  align-items: center;
+  /* KEY CHANGE: Removed 'margin-left: auto' and added a smaller, fixed margin */
+  margin-left: 10px;
+  -webkit-app-region: no-drag;
+}
+
+/* --- ADD: New Styles for Project Selector & Separators --- */
+.titlebar-separator {
+  width: 1px;
+  height: 14px;
+  background-color: #333333;
+  /* Subtle dark divider */
+  margin: 0 4px;
+  /* Tighter 4px spacing for pro look */
+}
+
+.project-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  user-select: none;
+  /* Prevent text selection */
+}
+
+.project-selector:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.project-selector .project-name {
+  font-size: 13px;
+  font-weight: 400;
+  /* Match menu item weight */
+  color: #FFFFFF;
+  /* distinct white color */
+}
+
+.project-selector .codicon {
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.titlebar-nav-button {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 20px;
+  /* THE FIX IS HERE */
+  color: #757575;
+  /* [MODIFIED] */
+}
+
+.titlebar-search {
+  display: flex;
+  align-items: center;
+  /* KEY CHANGE: Removed margin to rely on separator margins for consistency */
+  margin-left: 0;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar-search-container {
+  /* Box removed for button look */
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  width: auto;
+  height: auto;
+  padding: 4px 6px;
+  /* Match project selector padding */
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.titlebar-search-container:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* This is the new visible placeholder */
+.search-placeholder {
+  position: static;
+  /* Removed absolute positioning */
+  transform: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  /* Increased gap slightly */
+  color: #cccccc;
+  /* Slightly darker than project text */
+  font-size: 13px;
+  /* Match project text size */
+  pointer-events: none;
+}
+
+/* This rule is now more specific and uses !important to guarantee it applies */
+.titlebar-search-container .search-placeholder .codicon-search {
+  font-size: 14px !important;
+  color: #cccccc;
+  transform: scaleX(-1);
+}
+
+/* The actual input field is hidden to act as a button per visual request */
+.titlebar-search-container input {
+  display: none;
+}
+
+/* When the user clicks in the input, hide our placeholder */
+/* Since input is hidden, this logic is currently moot, but keeping for future */
+.titlebar-search-container input:focus+.search-placeholder {
+  display: none;
+}
+
+/* --- End of the Fix --- */
+
+.layout-controls {
+  display: flex;
+  align-items: center;
+  /* This is now the ONLY spring, pushing everything to its left. */
+  margin-left: auto;
+  -webkit-app-region: no-drag;
+}
+
+.layout-control-button {
+  display: flex;
+  align-items: center;
+  padding: 4px 5px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.layout-control-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.window-controls {
+  display: flex;
+  -webkit-app-region: no-drag;
+  position: relative;
+  z-index: 5000;
+  /* Ensure it sits on top */
+}
+
+.window-control-button {
+  width: 46px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+.window-control-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.window-close-btn:hover {
+  background-color: #E81123;
+}
+
+/* --- Project Selector Dropdown --- */
+.project-dropdown {
+  position: fixed;
+  width: 242px;
+  /* Exact from spec */
+  background-color: #202123;
+  /* Exact from spec */
+  border: 1px solid #454545;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  padding: 6px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* No scrollbar */
+}
+
+.project-dropdown.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 28px;
+  /* Exact from spec */
+  padding: 0 8px;
+  /* Exact from spec */
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  /* Exact from spec */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #D1D3DB;
+  /* Exact from spec */
+  transition: background-color 0.1s;
+  user-select: none;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.project-dropdown-item:hover {
+  background-color: #2a2d2e;
+  color: #ffffff;
+}
+
+.project-dropdown-item i.codicon {
+  font-size: 16px;
+  /* Exact from spec */
+  color: inherit;
+  width: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Separator */
+.project-dropdown-separator {
+  height: 1px;
+  background-color: #383838;
+  margin: 4px 0;
+  width: 100%;
+}
+
+/* Header */
+.project-dropdown-header {
+  padding: 4px 8px;
+  font-size: 11px;
+  color: #7b7b7b;
+  font-weight: 500;
+}
+
+/* Recent Item */
+.project-dropdown-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  /* Exact from spec */
+  padding: 0 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.1s;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.project-dropdown-recent-item:hover {
+  background-color: #2a2d2e;
+}
+
+/* Icon Box */
+.project-icon-box {
+  width: 20px;
+  /* Exact from spec */
+  height: 20px;
+  /* Exact from spec */
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  /* Scaled down for 20px box */
+  font-weight: 700;
+  color: #1E1E1E;
+  flex-shrink: 0;
+}
+
+/* Details */
+.project-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  min-width: 0;
+  gap: 2px;
+}
+
+.project-name-text {
+  font-size: 14px;
+  /* Exact from spec */
+  color: #D1D3DB;
+  /* Exact from spec */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: normal;
+}
+
+.project-path-text {
+  font-size: 11px;
+  color: #707070;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: normal;
+  margin-top: 0;
+}
+
+/* Active Project Tick */
+.project-active-tick {
+  color: #4CAF50;
+  /* Green checkmark */
+  font-size: 14px;
+  margin-left: auto;
+  /* Push to the right */
+  opacity: 0.9;
+}

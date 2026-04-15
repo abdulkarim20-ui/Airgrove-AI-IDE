@@ -1,0 +1,375 @@
+:root {
+  --activity-bar-width: 40px;
+  /* Central source of truth */
+  --bg-activity-bar: #222427;
+  /* Requested color for frame elements */
+  --bg-titlebar: #222427;
+  --bg-statusbar: #2b2e31;
+
+  --bg-sidebar: #1a1b1d;
+  /* Requested color for content elements */
+  --bg-editor: #1a1b1d;
+  --bg-panel: #1a1b1d;
+
+  --fg-primary: #cccccc;
+  --fg-secondary: #858585;
+
+  --border-color: #222427;
+  /* Matching border color */
+  --border-width: 4px;
+}
+
+html {
+  background-color: var(--bg-editor);
+  /* Prevent white flash before CSS loads fully */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Segoe WPC", "Segoe UI", sans-serif;
+  color: var(--fg-primary);
+  background-color: var(--bg-editor);
+  /* NEW: Ensure dark body background */
+  user-select: none;
+}
+
+/* --- BOOTSTRAPPING / PRELOAD FIX --- */
+.preload,
+.preload * {
+  transition: none !important;
+  animation: none !important;
+}
+
+.workbench {
+  display: grid;
+  /* Columns: Activity Bar | Primary Sidebar | Editor/Panel Area | Secondary Sidebar */
+  grid-template-columns: var(--activity-bar-width) 0px minmax(0, 1fr) 0px;
+  /* Rows: Main Content (Editor) | Panel | Status Bar */
+  grid-template-rows: 1fr 0px 22px;
+  height: calc(100vh - 35px);
+  margin-top: 35px;
+  background-color: var(--bg-editor);
+  /* Smooth VS Code-like animation */
+  transition: grid-template-columns 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0), grid-template-rows 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+
+  /* --- START: FIX LAYOUT SHIFT --- */
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  /* Star hidden to prevent flicker */
+  transition: opacity 0.1s ease-in, grid-template-columns 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0), grid-template-rows 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.workbench.visible {
+  opacity: 1;
+}
+
+/* --- END: FIX LAYOUT SHIFT --- */
+
+/* Activity Bar spans the full height (rows 1-2) */
+#activity-bar-container {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  z-index: 10;
+  background-color: var(--bg-activity-bar);
+}
+
+/* Sidebar spans the full height (rows 1-2) */
+#primary-sidebar-container {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  overflow: visible; /* Allow resizer to overflow slightly for easier grabbing */
+  background-color: var(--bg-sidebar);
+  border-right: var(--border-width) solid var(--border-color);
+  box-sizing: border-box;
+  position: relative;
+  transition: border-color 0.1s;
+}
+
+body.resizing-primary #primary-sidebar-container {
+  border-right-color: #d1d3db !important;
+}
+
+/* Editor is now explicitly in column 3 */
+#editor-container {
+  grid-column: 3;
+  /* MODIFIED */
+  grid-row: 1;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-editor);
+  /* VS Code dark background */
+  /* --- START: ADD THESE LINES --- */
+  display: flex;
+  flex-direction: column;
+  /* --- END: ADD THESE LINES --- */
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+#editor-container.drag-over {
+  background-color: rgba(0, 122, 204, 0.1) !important;
+}
+
+/* START: ADD THIS NEW RULE FOR THE SECONDARY SIDEBAR */
+#secondary-sidebar-container {
+  grid-column: 4;
+  grid-row: 1 / 3;
+  /* Spans top and middle rows */
+  overflow: visible;
+  /* Allow model menu to stick out to the left */
+  background-color: var(--bg-sidebar);
+  border-left: var(--border-width) solid var(--border-color);
+  box-sizing: border-box;
+  position: relative;
+  transition: border-color 0.1s;
+}
+
+body.resizing-secondary #secondary-sidebar-container {
+  border-left-color: #d1d3db !important;
+}
+
+/* END: ADD THIS NEW RULE */
+
+/* Explicitly place the panel in the second row */
+#panel-container {
+  /* CHANGE THIS ONE LINE */
+  grid-column: 3 / 4;
+  /* Correctly starts AFTER the sidebar (in column 3) */
+  grid-row: 2 / 3;
+  /* MODIFIED: Panel sits strictly in row 2, above status bar */
+  overflow: visible;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  /* NEW: Set a lower stacking context */
+
+  /* --- START: ADD THESE LINES --- */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-panel);
+  border-top: var(--border-width) solid var(--border-color);
+  /* Added Border */
+  box-sizing: border-box;
+  /* Ensure border doesn't cause overflow */
+  transition: border-color 0.1s;
+}
+
+body.resizing-panel #panel-container {
+  border-top-color: #d1d3db !important;
+}
+
+
+.lumina-input-header {
+  background-color: #2a2b2e;
+  /* Updated header color */
+  border-bottom: 1px solid var(--border-color);
+  font-size: 12px;
+  font-weight: 600;
+  color: #e5e5e5;
+}
+
+/* Status bar now spans all 5 columns */
+#statusbar-container {
+  grid-row: 3;
+  grid-column: 1 / 5;
+  position: relative;
+  /* NEW: Create a stacking context */
+  z-index: 10;
+  /* NEW: Set a higher stacking context */
+  background-color: var(--bg-statusbar);
+}
+
+
+/* Generic hidden class */
+.hidden {
+  display: none !important;
+}
+
+/* Allow selection only within the actual editor text area */
+.monaco-editor,
+.welcome-content,
+.ai-message-content {
+  user-select: text !important;
+}
+
+/* Ensure UI elements NEVER allow selection */
+#title-bar,
+.menubar,
+.tabs-list,
+#tabs-bar-container,
+.tab-item,
+.sidebar-header,
+.aux-view-header,
+#statusbar-container,
+#activity-bar-container {
+  user-select: none !important;
+}
+
+/* Force-disable the blue selection highlight for UI elements */
+#title-bar ::selection,
+.menubar ::selection,
+.tabs-list ::selection,
+#tabs-bar-container ::selection,
+.sidebar-header ::selection,
+.aux-view-header ::selection,
+#statusbar-container ::selection,
+#activity-bar-container ::selection {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* --- GLOBAL SCROLLBAR STYLES --- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #424242;
+  border: none;
+  /* rounded corners often used in VS Code modern themes, or keep square */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #4f4f4f;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #bfbfbf;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Explorer Root Folder Styles */
+.root-folder>.tree-item-header {
+  font-weight: bold;
+  color: #ffffff;
+  padding: 5px 10px;
+}
+
+
+.scm-file-item {
+  display: flex;
+  align-items: center;
+  padding: 3px 10px;
+  cursor: pointer;
+  color: #cccccc;
+  font-size: 13px;
+  position: relative;
+}
+
+.scm-file-item:hover {
+  background-color: #2a2d2e;
+}
+
+.scm-file-item .scm-actions {
+  display: none;
+  margin-left: auto;
+  gap: 6px;
+}
+
+.scm-file-item:hover .scm-actions {
+  display: flex;
+}
+
+.scm-action-btn {
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.scm-action-btn:hover {
+  opacity: 1;
+  color: white;
+}
+
+.scm-badge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: bold;
+  min-width: 14px;
+  text-align: center;
+}
+
+.scm-file-item:hover .scm-badge {
+  display: none;
+  /* Hide badge on hover to show actions, common VS Code pattern */
+}
+
+/* Group Headers */
+.scm-group-header {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #cccccc;
+}
+
+.tab-close-btn {
+  padding: 2px;
+  border-radius: 3px;
+  font-size: 14px;
+  margin-left: 8px;
+  opacity: 0;
+  /* Hidden by default */
+  transition: opacity 0.1s ease-in-out;
+}
+
+.tab-item.active .tab-close-btn,
+.tab-item:hover .tab-close-btn {
+  opacity: 1;
+  /* Show on active or hover */
+}
+
+.scm-group-header:hover {
+  background-color: #2a2d2e;
+}
+
+/* Panel Tab Highlights */
+.panel-tabs .tab.active {
+  color: #ffffff;
+  background-color: #333333;
+  /* Box style background */
+  border-radius: 4px;
+  /* Rounded corners */
+  border-bottom: none;
+  /* Remove underline */
+}
+
+.panel-tabs .tab {
+  color: #969696;
+  cursor: pointer;
+  padding: 3px 8px;
+  /* Reduced vertical padding for box fit */
+  margin: 0 2px;
+  /* Add spacing between boxes */
+  border-bottom: none;
+  transition: all 0.1s;
+  font-size: 11px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  /* Hover radius */
+}
+
+.panel-tabs .tab:hover {
+  color: #e0e0e0;
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Subtle hover background */
+}

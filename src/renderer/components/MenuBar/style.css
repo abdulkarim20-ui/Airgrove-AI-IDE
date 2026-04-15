@@ -1,0 +1,133 @@
+/* MenuBar Component Styles - VS Code-like dropdown menus */
+
+.menu-dropdown {
+    position: absolute;
+    top: 35px;
+    background-color: #202123;
+    border: 1px solid #454545;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    color: #cccccc;
+    font-family: "Segoe WPC", "Segoe UI", sans-serif;
+    font-size: 13px;
+    padding: 4px 0;
+    /* Vertical padding only, remove horizontal for full width */
+    min-width: 295px;
+    /* Requested width 295px */
+    z-index: 1000;
+    overflow: hidden;
+    /* Ensure rounded corners clip children */
+
+    /* Animation */
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.05s ease-out, transform 0.05s ease-out;
+    pointer-events: none;
+}
+
+.menu-dropdown.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.menu-item,
+.menu-separator {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.menu-item {
+    justify-content: space-between;
+    height: 26px;
+    /* Reduced from 30px for compactness */
+    padding: 0 10px 0 12px;
+    /* Adjusted left padding */
+    cursor: default;
+    position: relative;
+    margin: 0;
+    border-radius: 0;
+}
+
+/* Hover State - Subtle Dark Highlight */
+.menu-item:hover {
+    background-color: #2a2d2e;
+    color: #ffffff;
+}
+
+.menu-item-label {
+    flex-grow: 1;
+    margin-right: 20px;
+    /* Space between label and shortcut */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu-item-shortcut {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    /* Reduced gap from 4px */
+    margin-left: auto;
+    padding-left: 20px;
+    color: #858585;
+    font-weight: normal;
+    /* Ensure normal weight */
+}
+
+.shortcut-key {
+    background-color: transparent;
+    color: #858585;
+    padding: 0px 4px;
+    /* Slightly tighter padding */
+    border-radius: 3px;
+    font-size: 11px;
+    min-width: 14px;
+    text-align: center;
+    line-height: 1.4;
+    font-family: inherit;
+    border: 1px solid #454545;
+    font-weight: 600;
+    /* Match label weight */
+}
+
+.shortcut-plus {
+    font-size: 10px;
+    opacity: 0.4;
+    margin: 0;
+    /* Removed margin for compactness */
+}
+
+.shortcut-space {
+    width: 4px;
+}
+
+.menu-item:hover .shortcut-key {
+    background-color: transparent;
+    border-color: #707070;
+    color: #ffffff;
+}
+
+/* Separator styling */
+.menu-separator {
+    height: 1px;
+    background-color: #333333;
+    /* Slightly subtler separator */
+    margin: 3px 0;
+    /* Reduced margin from 6px */
+    padding: 0;
+    width: 100%;
+}
+
+/* Submenu Arrow Indicator */
+.submenu-indicator {
+    padding-left: 10px;
+    font-size: 12px;
+    color: #cccccc;
+}
+
+.menu-item:hover .submenu-indicator {
+    color: white;
+}

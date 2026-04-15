@@ -1,0 +1,190 @@
+#primary-sidebar-container {
+  background-color: var(--bg-sidebar);
+  color: var(--fg-primary);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* CRITICAL: Changed to visible for resizer accessibility */
+  overflow: visible;
+  /* Ensure it stays in its grid cell */
+  position: relative;
+  z-index: 5;
+  /* transition: opacity removed for smooth slide */
+  border-right: none;
+  /* Border added via class when open */
+  box-sizing: border-box;
+  /* Ensure border doesn't cause overflow */
+}
+
+#primary-sidebar-container.sidebar-open {
+  border-right: var(--border-width) solid var(--border-color);
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  /* THIS PUSHES ITEMS TO THE EDGES */
+  align-items: center;
+  padding: 8px 10px;
+  height: 35px;
+  box-sizing: border-box;
+  /* Prevent shrinking */
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8f8f8f;
+  text-transform: uppercase;
+}
+
+/* START: ADD THIS NEW RULE */
+.sidebar-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  /* Hover effects to show actions like in VS Code */
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+#primary-sidebar-container:hover .sidebar-header-actions {
+  opacity: 1;
+}
+
+.sidebar-header-actions .explorer-action {
+  display: none !important;
+}
+
+#primary-sidebar-container.explorer-active .sidebar-header-actions .explorer-action {
+  /* Using important because we might be forcing 'flex' in JS display property */
+  display: flex !important;
+}
+
+/* END: ADD THIS NEW RULE */
+
+.action-icon {
+  font-size: 16px;
+  cursor: pointer;
+  color: #cccccc;
+}
+
+.action-icon:hover {
+  opacity: 0.8;
+}
+
+/* --- START: NEW AND UPDATED RULES --- */
+#sidebar-view-container {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.view {
+  display: none;
+  /* Hide all views by default */
+  padding: 0px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.view.visible {
+  display: flex;
+  /* Changed from block to flex */
+  flex-direction: column;
+}
+
+/* --- END: NEW AND UPDATED RULES --- */
+
+
+/* --- START: UPDATED Resizer Styles --- */
+#primary-sidebar-resizer {
+  position: absolute;
+  top: 0;
+  right: -4px; /* Move it slightly into the editor space to straddle the border */
+  width: 8px; /* Wider hit-zone (4px on each side of the actual border line) */
+  height: 100%;
+  cursor: ew-resize;
+  background-color: transparent;
+  z-index: 1000; /* Ensure it stays above everything */
+  transition: background-color 0.1s;
+}
+
+#primary-sidebar-resizer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px; /* Match physical border width */
+  height: 100%;
+  background-color: transparent;
+  transition: background-color 0.1s;
+}
+
+/* Highlight while dragging */
+body.resizing-primary #primary-sidebar-resizer::after {
+  background-color: transparent; /* Rely on container border highlight */
+}
+
+/* --- END: UPDATED Resizer Styles --- */
+
+/* --- START: ADD THESE STYLES FOR AUXILIARY VIEWS (OUTLINE/TIMELINE) --- */
+
+#sidebar-auxiliary-container {
+  flex-shrink: 0;
+  /* Prevents this container from shrinking */
+  border-top: 1px solid var(--border-color);
+  /* Use system border color */
+}
+
+.aux-view-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  color: #cccccc;
+  user-select: none;
+}
+
+.aux-view-header:hover {
+  background-color: rgba(137, 137, 137, 0.1);
+}
+
+.aux-view-header .codicon {
+  font-size: 10px !important;
+  min-width: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.aux-view-title {
+  text-transform: uppercase;
+}
+
+.aux-view-content {
+  display: none;
+  /* Collapsed by default */
+  padding: 0 10px 10px;
+  font-size: 13px;
+  color: #8f8f8f;
+}
+
+/* NEW: Show content if parent has 'expanded' class */
+.aux-view.expanded .aux-view-content {
+  display: block;
+}
+
+/* START: ADD THIS NEW RULE */
+/* This adds the border between the sections */
+.aux-view+.aux-view {
+  border-top: 1px solid var(--border-color);
+}
+
+/* END: ADD THIS NEW RULE */
+
+/* --- END: ADD THESE STYLES --- */

@@ -1,0 +1,46 @@
+.binary-view-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-editor);
+    color: #cccccc;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.binary-view-container .warning-icon {
+    font-size: 48px;
+    color: #eab308;
+    /* Yellow-500 */
+    margin-bottom: 20px;
+}
+
+.binary-view-container .binary-message {
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 400px;
+    margin-bottom: 24px;
+}
+
+.binary-view-container .open-anyway-btn {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.2s;
+}
+
+.binary-view-container .open-anyway-btn:hover {
+    background-color: #0062a3;
+}
+
+.binary-view-container .open-anyway-btn:active {
+    background-color: #005a96;
+}

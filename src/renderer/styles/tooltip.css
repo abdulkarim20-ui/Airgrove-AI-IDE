@@ -1,0 +1,54 @@
+#custom-tooltip {
+    position: fixed;
+    background-color: #d1d3db;
+    color: #1a1b1d;
+    /* Very dark text */
+    padding: 3px 10px 0 10px;
+    /* Stronger optical centering nudge */
+    /* Optical centering: shift down 1px */
+    height: 26px;
+    /* Slightly reduced height for sharper look */
+    display: flex;
+    align-items: flex-start;
+    /* Switch to flex-start with padding for precise control */
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 12px;
+    /* Standard IDE tooltip size */
+    text-rendering: optimizeLegibility;
+    font-weight: 500;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+#custom-tooltip::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+/* Tooltip positioned below the element - Arrow points up */
+#custom-tooltip.bottom::after {
+    border-width: 0 5px 6px 5px;
+    border-color: transparent transparent #d1d3db transparent;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Tooltip positioned above the element - Arrow points down */
+#custom-tooltip.top::after {
+    border-width: 6px 5px 0 5px;
+    border-color: #d1d3db transparent transparent transparent;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+}

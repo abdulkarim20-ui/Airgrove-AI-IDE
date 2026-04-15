@@ -1,0 +1,154 @@
+/* Extensions View Styles
+   [REPLACED ALL CONTENT]
+*/
+
+/* Hide generic header when this view is visible */
+#primary-sidebar-container:has(#extensions-view.view.visible) > .sidebar-header {
+    display: none;
+}
+#extensions-view.view.visible {
+    height: 100%;
+}
+
+/* 1. View Header Styles */
+.extensions-view-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Pushes title and actions apart */
+    padding: 8px 10px;
+    height: 35px;
+    box-sizing: border-box;
+}
+
+.extensions-view-header .aux-view-title {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    color: #8f8f8f;
+}
+
+.extensions-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.extensions-header-actions .action-icon {
+    font-size: 16px;
+    cursor: pointer;
+    color: #cccccc;
+    padding: 2px;
+    border-radius: 3px;
+}
+.extensions-header-actions .action-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 2. Search Bar Styles (adapted from SearchView) */
+.extensions-search-container {
+    padding: 0 10px 8px 10px;
+}
+
+.extensions-search-container .input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.extensions-search-container .search-input {
+    width: 100%;
+    background-color: #3C3C3C;
+    border: 1px solid #3C3C3C;
+    color: #cccccc;
+    padding: 4px 60px 4px 4px; /* Padding for 2 icons */
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+.extensions-search-container .search-input:focus {
+    outline: 1px solid #007acc;
+}
+
+.extensions-search-container .input-actions {
+    display: flex;
+    gap: 4px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.extensions-search-container .input-actions .codicon {
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 2px;
+    color: #ccc;
+    font-size: 16px;
+}
+.extensions-search-container .input-actions .codicon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 3. List Section Styles */
+.extensions-list-container {
+    padding: 0; /* REMOVED horizontal padding */
+}
+
+.extensions-list-container .aux-view-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    color: #cccccc;
+    user-select: none;
+    /* REMOVED: position: relative; */
+}
+
+/* --- START: ADD HOVER STYLE --- */
+.extensions-list-container .aux-view-header:hover {
+    background-color: rgba(137, 137, 137, 0.1); /* Keep hover style */
+}
+/* --- END: ADD HOVER STYLE --- */
+
+.extensions-list-container .aux-view-header .codicon {
+    font-size: 16px;
+}
+
+.extensions-list-container .aux-view-header .aux-view-title {
+    text-transform: uppercase;
+    flex-grow: 1;
+}
+
+/* REMOVED: .extensions-count-badge styles */
+
+.extensions-list-container .aux-view-content {
+    display: none;
+    padding: 0 0 10px 20px;
+    font-size: 13px;
+    color: #8f8f8f;
+}
+
+.extensions-list-container .aux-view.expanded .aux-view-content {
+    display: block;
+}
+
+/* --- START: REVERTED BORDER STYLE --- */
+/* Remove the ::before rule */
+.extensions-list-container .aux-view + .aux-view > .aux-view-header::before {
+    display: none; /* Hide the pseudo-element border */
+}
+
+/* Add back the simple full-width border */
+.extensions-list-container .aux-view + .aux-view {
+    border-top: 1px solid #444444; /* Use the standard border */
+}
+/* --- END: REVERTED BORDER STYLE --- */
+
+/* --- START: ADD PLACEHOLDER STYLE --- */
+.extension-placeholder {
+    padding: 4px 0;
+    color: #cccccc; /* Make placeholder text clearer */
+}/* --- END: ADD PLACEHOLDER STYLE --- */

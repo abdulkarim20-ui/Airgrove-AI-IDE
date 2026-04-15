@@ -1,0 +1,231 @@
+/* Quick Pick Modal Styles */
+#quick-pick-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    /* Position at top like VS Code */
+}
+
+#quick-pick-container {
+    width: 600px;
+    background-color: #202123;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #454545;
+    height: fit-content;
+    max-height: 80vh;
+}
+
+#quick-pick-header {
+    padding: 6px 12px;
+    background-color: #202123;
+    border-bottom: none;
+}
+
+#quick-pick-input-wrapper {
+    padding: 6px 10px;
+}
+
+#quick-pick-input {
+    width: 100%;
+    background-color: #3c3c3c;
+    border: 1px solid #3c3c3c;
+    color: #cccccc;
+    font-size: 13px;
+    padding: 5px 8px;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 3px;
+}
+
+#quick-pick-input:focus {
+    border-color: #555555;
+}
+
+#quick-pick-input::placeholder {
+    color: #858585;
+}
+
+#quick-pick-list {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0;
+    overflow-y: auto;
+}
+
+.quick-pick-item {
+    display: flex;
+    align-items: center;
+    padding: 3px 12px;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.1s ease, box-shadow 0.1s ease;
+    border-left: 2px solid transparent;
+}
+
+.quick-pick-item.active {
+    background-color: #2a2d2e;
+    color: #ffffff;
+}
+
+.quick-pick-item:hover {
+    background-color: #2a2d2e;
+}
+
+.quick-pick-item-icon-container {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 4px;
+}
+
+.quick-pick-item-icon-container .file-icon-svg {
+    width: 16px;
+    height: 16px;
+}
+
+.quick-pick-item-icon-container .codicon {
+    font-size: 16px;
+    color: #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* File Icon Colors */
+.icon-js {
+    color: #f1e05a !important;
+}
+
+.icon-css {
+    color: #563d7c !important;
+}
+
+/* Or a nice purple */
+.icon-html {
+    color: #e34c26 !important;
+}
+
+.icon-json {
+    color: #cbcb41 !important;
+}
+
+/* .icon-md was blue, making it gray */
+.icon-md {
+    color: #858585 !important;
+}
+
+.icon-svg {
+    color: #ff8b3d !important;
+}
+
+.icon-config {
+    color: #858585 !important;
+}
+
+.quick-pick-item-content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 1;
+}
+
+/* Horizontal layout for label and description */
+.quick-pick-item-main {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.quick-pick-item-label {
+    font-size: 13px;
+    color: #cccccc;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.quick-pick-item.active .quick-pick-item-label {
+    color: #ffffff;
+}
+
+.quick-pick-highlight {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.quick-pick-item-description {
+    font-size: 12px;
+    color: #858585;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.quick-pick-item-shortcut {
+    font-size: 12px;
+    color: #858585;
+    white-space: nowrap;
+    margin-left: auto;
+    display: flex;
+    gap: 4px;
+}
+
+.quick-pick-item-shortcut span {
+    background: rgba(128, 128, 128, 0.1);
+    padding: 1px 4px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quick-pick-separator {
+    height: 1px;
+    background-color: #333333;
+    margin: 4px 0;
+}
+
+.quick-pick-header-text {
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #858585;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: lowercase;
+}
+
+.quick-pick-header-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.quick-pick-header-meta i {
+    font-size: 14px;
+}
+
+/* Recently opened label on the right */
+.quick-pick-item-meta {
+    font-size: 11px;
+    color: #e1e1e1;
+    margin-left: auto;
+}

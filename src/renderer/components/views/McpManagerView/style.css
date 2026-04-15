@@ -1,0 +1,88 @@
+/* 📄 FILE: src/renderer/components/views/McpManagerView/style.css */
+
+.mcp-manager-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.mcp-manager-container.hidden {
+    display: none !important;
+}
+
+.mcp-manager-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #454545;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.mcp-manager-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #cccccc;
+}
+
+.mcp-title-icon {
+    width: 20px;
+    height: 20px;
+    background-color: currentColor;
+    -webkit-mask-image: url('../../../../../assets/modified_icons/mcp_server.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+}
+
+.mcp-manager-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.mcp-btn {
+    background: transparent;
+    color: #cccccc;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.mcp-btn.primary {
+    background: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.mcp-btn.primary:hover {
+    background: #383838;
+}
+
+.mcp-btn.secondary {
+    padding: 6px 8px; /* Slightly less padding to align neatly */
+}
+
+.mcp-btn.secondary:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.mcp-manager-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.mcp-empty-text {
+    color: #999;
+}

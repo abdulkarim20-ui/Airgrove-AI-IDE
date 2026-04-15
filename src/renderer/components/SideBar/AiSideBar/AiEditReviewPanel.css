@@ -1,0 +1,214 @@
+/* AI Edit Review Panel (Above Input) - Refined Design */
+.ai-edit-review-panel {
+    background: transparent;
+    border: none;
+    margin-bottom: 6px; /* Reduced gap to input panel by half */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Reduced vertical gap between file list and actions */
+    animation: ag-panel-slide-up 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 101;
+    cursor: default;
+    user-select: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: "Segoe WPC", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@keyframes ag-panel-slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ai-edit-review-panel.hidden {
+    display: none;
+}
+
+/* File List Container (Collapsible) */
+.ai-review-file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    overflow: hidden;
+    max-height: 500px;
+}
+
+.ai-edit-review-panel.collapsed .ai-review-file-list {
+    max-height: 0;
+    opacity: 0;
+    gap: 0;
+    margin-bottom: -4px;
+}
+
+/* The File Box */
+.ai-review-file-box {
+    background: rgba(30, 30, 30, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid #333;
+    border-radius: 8px;
+    height: 28px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.ai-review-file-box:hover {
+    background: rgba(40, 40, 40, 0.8);
+}
+
+.ai-review-status-icon {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #df925d;
+    flex-shrink: 0;
+}
+
+.ai-review-status-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.ai-review-file-diff {
+    display: flex;
+    gap: 6px;
+    font-size: 12px;
+    font-family: var(--ai-font-mono, monospace);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.diff-added { color: #4ec9b0; }
+.diff-removed { color: #f48771; }
+
+.ai-review-file-info {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.ai-review-file-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #cccccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0; /* Prioritize showing the filename */
+    max-width: 60%; /* Allow it to take up to 60% before truncating itself */
+}
+
+.ai-review-file-path-prefix {
+    font-size: 11px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl; /* Truncate from the left side */
+    text-align: left; /* Keep text aligned to the left */
+    flex: 1;
+    min-width: 0; /* Crucial for internal flex truncation */
+    margin-left: 4px;
+    unicode-bidi: plaintext; /* Ensure path separators and dots don't flip */
+}
+
+/* The Action Bar */
+.ai-review-action-bar {
+    display: flex;
+    align-items: center;
+    padding: 2px 4px;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ai-review-nav-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #888;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.ai-review-nav-icon {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.ai-review-count-text {
+    font-size: 13px; /* Matched font size to screenshot specs */
+    color: #999;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ai-review-spacer {
+    flex: 1;
+}
+
+.ai-review-reject-all, .ai-review-accept-all {
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    font-size: 13.008px; /* Exact font size from screenshot */
+    font-family: "Segoe WPC", "Segoe UI", sans-serif;
+    transition: all 0.1s;
+    flex-shrink: 0;
+    height: 18.2px; /* Exact height from screenshot (63.72 x 18.2) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2.5px;
+}
+
+.ai-review-reject-all {
+    color: #888;
+    background: transparent;
+    padding: 0 6px;
+    font-weight: 400;
+}
+
+.ai-review-reject-all:hover {
+    color: #f48771;
+}
+
+.ai-review-accept-all {
+    background: #0078D4; /* Exact blue from screenshot */
+    color: #FFFFFF; /* Exact white from screenshot */
+    padding: 0 4px; /* Exact padding from screenshot */
+    font-weight: 400; /* Screenshot doesn't specify bold, looks regular-ish or 400-500 */
+}
+
+.ai-review-accept-all:hover {
+    background: #006ebc;
+}
+
+.ai-review-chevron {
+    color: #888;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 2px;
+}
+
+.ai-review-chevron:hover {
+    color: #ccc;
+}

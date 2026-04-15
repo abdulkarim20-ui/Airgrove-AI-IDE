@@ -1,0 +1,453 @@
+/* Import xterm.js styles */
+@import url("https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css");
+
+/* Basic app layout - REMOVED html, body styles as they duplicate main.css */
+
+/* --- VS CODE-STYLE PANEL HEADER --- */
+.panel-header {
+  background-color: var(--bg-panel);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Pushes tabs left, actions right */
+  padding: 0 16px 0 8px;
+  height: 35px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--bg-panel);
+  /* Seamless look */
+  position: relative;
+}
+
+#panel-resizer {
+  position: absolute;
+  top: -4px; /* Matches --border-width, straddles exactly */
+  left: 0;
+  width: 100%;
+  height: 8px; /* Wider hit-zone for faster grabbing */
+  cursor: ns-resize;
+  background-color: transparent;
+  z-index: 1000;
+  transition: background-color 0.1s;
+}
+
+#panel-resizer::after {
+  content: "";
+  position: absolute;
+  bottom: 0; /* Align with top border of panel container */
+  left: 0;
+  width: 100%;
+  height: 4px; /* Match physical border width */
+  background-color: transparent;
+  transition: background-color 0.1s;
+}
+
+/* Highlight while dragging */
+body.resizing-panel #panel-resizer::after {
+  background-color: transparent; /* Rely on container border highlight */
+}
+
+.panel-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Space between tab names */
+}
+
+.tab {
+  padding: 4px 8px;
+  text-transform: none;
+  /* Changed from uppercase to match image */
+  color: #969696;
+  /* Inactive tab color */
+  cursor: pointer;
+  border-bottom: none;
+  /* Removed the line style */
+  border-radius: 3px;
+  font-family: "Segoe WPC", "Segoe UI", sans-serif;
+  font-size: 13px;
+  transition: background-color 0.1s;
+}
+
+.tab:hover {
+  color: #cccccc;
+}
+
+.tab.active {
+  color: #ffffff;
+  background-color: var(--bg-panel);
+  /* Seamless merge with content */
+  font-weight: 400;
+  /* Regular weight, not bold */
+}
+
+.panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.action-separator {
+  width: 1px;
+  height: 14px;
+  background-color: #454545;
+}
+
+.panel-actions .codicon {
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #cccccc;
+}
+
+.panel-actions .codicon:hover {
+  background-color: #3e3e42;
+}
+
+/* Compound button (New Terminal + Chevron) */
+.compound-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0 2px;
+}
+
+.compound-button:hover {
+  background-color: #3e3e42;
+}
+
+.compound-button .codicon {
+  padding: 4px 2px;
+}
+
+.compound-button:hover .codicon {
+  background-color: transparent;
+  /* Parent handles hover bg */
+}
+
+.compound-button .codicon-chevron-down {
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+/* Terminal container */
+#terminal-container {
+  width: 100%;
+  flex-grow: 1;
+  overflow: hidden;
+  background-color: var(--bg-panel);
+  /* Ensure container is dark */
+}
+
+/* Xterm.js overrides */
+.xterm {
+  padding: 10px;
+  height: 100%;
+  user-select: text;
+}
+
+.xterm .xterm-viewport {
+  width: 100% !important;
+  /* Force viewport to fill container */
+  background-color: transparent !important;
+  /* Ensure xterm is transparent */
+}
+
+
+/* --- MODERN SCROLLBAR STYLES --- */
+.xterm-viewport::-webkit-scrollbar {
+  width: 10px;
+}
+
+.xterm-viewport::-webkit-scrollbar-track {
+  background: var(--bg-panel);
+}
+
+.xterm-viewport::-webkit-scrollbar-thumb {
+  background-color: #444444;
+  border-radius: 5px;
+  border: 2px solid #1e1e1e;
+}
+
+.xterm-viewport::-webkit-scrollbar-thumb:hover {
+  background-color: #555555;
+}
+
+
+
+#terminal-container {
+  flex-grow: 1;
+}
+
+/* --- Sidebar Resizer --- */
+.sidebar-resizer {
+  width: 6px;
+  /* Width of the grabbable area */
+  background-color: transparent;
+  /* Border color */
+  cursor: col-resize;
+  flex-shrink: 0;
+
+  /* Hide the resizer by default */
+  display: none;
+  z-index: 100;
+  transition: background-color 0.1s;
+}
+
+#panel-content.sidebar-visible .sidebar-resizer {
+  display: block;
+  /* Show resizer when sidebar is visible */
+}
+
+.sidebar-resizer::after {
+  content: "";
+  display: block;
+  width: 4px; /* Align with global border width */
+  height: 100%;
+  margin: 0 auto;
+  background-color: transparent;
+  transition: background-color 0.1s;
+}
+
+.sidebar-resizer:hover::after {
+  background-color: #d1d3db;
+  opacity: 0.5;
+  /* Highlight on hover */
+}
+
+
+/* --- Terminal Sidebar Styles --- */
+.terminal-sidebar {
+  width: 200px;
+  /* Default width */
+  min-width: 150px;
+  /* Min resize width */
+  max-width: 500px;
+  /* Max resize width */
+  background-color: var(--bg-panel);
+  border-left: 1px solid #555555;
+  /* Highly visible vertical separator on the LEFT side of sidebar */
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  display: none;
+  /* Hidden by default */
+  box-sizing: border-box;
+  /* Ensure border doesn't add to width */
+}
+
+#panel-content.sidebar-visible .terminal-sidebar {
+  display: flex;
+}
+
+.terminal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* CHANGED - Removed top padding */
+  overflow-y: auto;
+  flex: 1;
+  /* Take remaining space */
+  box-sizing: border-box;
+}
+
+.terminal-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  color: #cccccc;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.terminal-list-item:hover {
+  background-color: #37373d;
+}
+
+.terminal-list-item.active {
+  background-color: #37373d;
+  color: white;
+  border-left: 2px solid white;
+  /* Monochromatic active indicator */
+}
+
+/* Style for the 'span' to prevent it from growing */
+.terminal-list-item>span {
+  flex-grow: 1;
+  padding-left: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Styles for icons on each tab --- */
+.terminal-list-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  visibility: hidden;
+}
+
+.terminal-list-item:hover .terminal-list-item-actions,
+.terminal-list-item.active .terminal-list-item-actions {
+  visibility: visible;
+}
+
+.terminal-list-item-actions .codicon {
+  font-size: 14px;
+  padding: 3px;
+  border-radius: 4px;
+}
+
+.terminal-list-item-actions .codicon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Wrapper for individual terminal instance */
+.terminal-instance-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.split-item {
+  color: #888;
+  /* Slightly dimmer for split subordinates */
+}
+
+.split-item .codicon-terminal {
+  margin-left: 10px;
+  /* Indent the terminal icon too */
+}
+
+/* --- START: Fix for AirGrove Integration --- */
+
+#panel-content {
+  /* These rules make the terminal content area fill the available space */
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow: hidden;
+  min-height: 0;
+  /* Prevents flexbox overflow bugs */
+  /* 'border-top' was moved to #panel-container in main.css */
+  /* 'height: 100%' was removed as flex-grow: 1 is now sufficient */
+}
+
+/* --- END: Fix for AirGrove Integration --- */
+/* --- Styles for terminal renaming --- */
+.terminal-rename-input {
+  background-color: #3b3b3b;
+  border: 1px solid #007acc;
+  color: white;
+  font-size: 13px;
+  padding: 2px 4px;
+  width: 100%;
+  margin: 0 4px;
+  outline: none;
+}
+
+.terminal-name {
+  cursor: text;
+}
+
+/* --- Output Panel Action Styles --- */
+
+.output-filter-container {
+  display: flex;
+  align-items: center;
+  background-color: #3c3c3c;
+  /* Lighter input background */
+  border: 1px solid transparent;
+  border-radius: 2px;
+  padding: 1px 6px;
+  width: 200px;
+  /* Wider search box */
+  height: 22px;
+  margin-right: 10px;
+}
+
+.output-filter-container:focus-within {
+  border-color: #007acc;
+  background-color: #252526;
+  /* Darker on focus usually */
+}
+
+/* Removed internal filter icon style as it was removed from HTML */
+
+.output-filter-input {
+  background: transparent;
+  border: none;
+  color: #cccccc;
+  font-family: "Segoe WPC", "Segoe UI", sans-serif;
+  font-size: 13px;
+  width: 100%;
+  outline: none;
+  padding: 0;
+}
+
+.output-filter-input::placeholder {
+  color: #858585;
+  /* Subtle placeholder */
+  font-style: italic;
+  /* Often slightly italicized or just lighter */
+}
+
+.output-channel-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  /* Space between text and chevron */
+  cursor: pointer;
+  color: #cccccc;
+  background-color: #3c3c3c;
+  /* Dropdown background */
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-right: 8px;
+  font-size: 13px;
+  height: 22px;
+  width: 100px;
+  /* Fixed width for selector */
+  box-sizing: border-box;
+  font-family: "Segoe WPC", "Segoe UI", sans-serif;
+}
+
+.output-channel-selector:hover {
+  background-color: #444444;
+}
+
+/* Removed .codicon-output style as icon was removed */
+
+.output-channel-selector .codicon-chevron-down {
+  font-size: 12px;
+}
+
+.output-channel-selector span {
+  margin-top: -1px;
+}
+
+/* Action Icons (Clear, Lock, Ellipsis) */
+#output-actions .codicon {
+  margin-left: 4px;
+  padding: 3px;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #cccccc;
+  cursor: pointer;
+}
+
+#output-actions .codicon:hover {
+  background-color: #3e3e42;
+}

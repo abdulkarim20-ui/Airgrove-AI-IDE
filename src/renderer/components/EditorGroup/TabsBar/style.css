@@ -1,0 +1,254 @@
+/* 📄 FILE: src/renderer/components/EditorGroup/TabsBar/style.css */
+
+#tabs-bar-container {
+    height: 35px;
+    background-color: #17191a;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-shrink: 0;
+    position: relative;
+    box-sizing: border-box;
+    /* Remove actual border to use pseudo-element baseline */
+    border-bottom: none;
+    overflow: visible;
+}
+
+/* The baseline that runs across the bottom of the tab bar */
+#tabs-bar-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #252526;
+    z-index: 1;
+    /* Sit behind the active tab */
+}
+
+/* --- START: NEW CONTAINER FOR THE SCROLLING TABS --- */
+.tabs-list {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    /* Changed from hidden to allow tab overlap */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* --- END: NEW CONTAINER --- */
+
+
+/* For Webkit browsers (Chrome, Electron) - Now targets the new list */
+.tabs-list::-webkit-scrollbar {
+    height: 10px;
+}
+
+.tabs-list::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.tabs-list::-webkit-scrollbar-thumb {
+    background-color: transparent !important;
+    border-radius: 5px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+.tabs-list:hover::-webkit-scrollbar-thumb {
+    background-color: #535353 !important;
+}
+
+
+.tab-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #17191a;
+    border-right: 1px solid #252526;
+    color: #969696;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none !important;
+    min-width: 120px;
+    max-width: 200px;
+}
+
+.tab-item .tab-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tab-item.preview {
+    font-style: italic;
+    color: #9aa0a6;
+    /* Slightly dimmer for preview */
+}
+
+.tab-item.browser-tab {
+    min-width: 280px;
+    max-width: 280px;
+}
+
+.tab-item.active {
+    background-color: #1a1b1d;
+    color: white;
+    border-top: 1px solid #ffffff;
+    z-index: 5;
+    /* Sit exactly on top of the baseline */
+    border-bottom: 1px solid #1a1b1d;
+    margin-bottom: 0;
+    height: 35px;
+}
+
+.tab-item .codicon {
+    font-size: 16px;
+}
+
+/* --- START: ADD THIS NEW RULE --- */
+/* This ensures SVG icons have the same size as Codicons within a tab */
+.tab-item .file-icon-svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- END: ADD THIS NEW RULE --- */
+
+.tab-close-btn {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 1;
+    /* Match font-size to avoid vertical shift */
+    margin-left: 6px;
+    opacity: 0;
+    color: #969696;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Ensure the icon itself is centered inside the flex box */
+.tab-close-btn::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab-item.active .tab-close-btn,
+.tab-item.dirty .tab-close-btn {
+    opacity: 1;
+}
+
+.tab-item:not(.active):not(.dirty):hover .tab-close-btn {
+    opacity: 1;
+}
+
+.tab-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #969696 !important;
+    /* Ensure X is visible on hover */
+}
+
+/* --- DIRTY STATE LOGIC --- */
+
+/* 1. When dirty and NOT hovered: Hide the 'X' icon text, show the dot */
+.tab-item.dirty:not(:hover) .tab-close-btn {
+    color: transparent !important;
+}
+
+.tab-item.dirty:not(:hover) .tab-close-btn::after {
+    opacity: 1;
+}
+
+/* 2. When dirty AND hovered: Show the 'X' icon, hide the dot */
+.tab-item.dirty:hover .tab-close-btn {
+    color: #969696;
+}
+
+.tab-item.dirty:hover .tab-close-btn::after {
+    opacity: 0;
+}
+
+/* 3. Base style for the Dirty Dot (hidden by default) */
+.tab-close-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    margin-left: -4px;
+    border-radius: 50%;
+    background-color: #969696;
+    pointer-events: none;
+    opacity: 0;
+    /* Hidden unless tab is dirty */
+    transition: opacity 0.1s ease-in-out;
+}
+
+/* END: NEW STYLES */
+
+/* --- START: NEW STYLES FOR ACTION BUTTONS --- */
+.tab-actions {
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+    height: 35px;
+    /* Fixed height matching container to maintain centering */
+    align-self: flex-start;
+}
+
+.tab-action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    font-size: 16px;
+    color: #ffffff;
+    /* Match Run button white */
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.tab-action-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-action-button img {
+    width: 16px;
+    height: 16px;
+    opacity: 1;
+}
+
+.tab-action-button:hover img {
+    opacity: 1;
+}
+
+/* --- END: NEW STYLES FOR ACTION BUTTONS --- */
+
+
+/* --- START: ADD THESE STYLES FOR THE DELETED TAB ANIMATION --- */
+.tab-item.deleted {
+    transition: all 0.3s ease-in;
+    text-decoration: line-through;
+    color: #888888;
+    opacity: 0.8;
+}
+
+/* --- END: ADD THESE STYLES --- */

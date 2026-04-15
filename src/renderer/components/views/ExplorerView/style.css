@@ -1,0 +1,631 @@
+/* Explorer View Styles */
+
+/* --- START: ADD THESE NEW STYLES --- */
+.aux-view {
+    /* This style is for collapsible sections, like "NO FOLDER OPENED" */
+    font-size: 11px;
+    font-weight: 600;
+    color: #cccccc;
+    user-select: none;
+}
+
+.aux-view-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.aux-view-header:hover {
+    background-color: rgba(137, 137, 137, 0.1);
+}
+
+.aux-view-header .codicon {
+    font-size: 10px !important;
+    min-width: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aux-view-title {
+    text-transform: uppercase;
+}
+
+.aux-view-content {
+    /* By default, sections are expanded (no 'display: none') */
+    padding: 0 10px 10px;
+    font-size: 13px;
+    color: #8f8f8f;
+    font-weight: 400;
+    /* Reset font weight for content */
+}
+
+/* --- END: ADD THESE NEW STYLES --- */
+
+
+.no-folder-message {
+    display: flex;
+    /* This will be shown/hidden by the JS */
+    flex-direction: column;
+    /* --- START: MODIFICATION --- */
+    align-items: flex-start;
+    /* Align text to the left */
+    text-align: left;
+    padding: 0 10px;
+    /* Add padding to match the section content */
+    /* --- END: MODIFICATION --- */
+    height: 100%;
+    font-size: 13px;
+    color: #8f8f8f;
+}
+
+/* --- START: ADD/MODIFY THESE STYLES --- */
+.no-folder-message-header {
+    font-weight: 600;
+    color: #cccccc;
+    margin-bottom: 12px;
+}
+
+.no-folder-message-detail {
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+.no-folder-message-detail strong {
+    color: #3794FF;
+    /* VS Code link color */
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.no-folder-message-detail strong:hover {
+    text-decoration: underline;
+}
+
+.no-folder-message-detail a {
+    color: #3794FF;
+    text-decoration: none;
+}
+
+.no-folder-message-detail a:hover {
+    text-decoration: underline;
+}
+
+/* --- END: ADD/MODIFY THESE STYLES --- */
+
+.open-folder-btn {
+    background-color: #2b2d2e;
+    color: #cccccc;
+    border: none;
+    padding: 8px 12px;
+    /* --- START: MODIFICATION --- */
+    margin-top: 0;
+    /* Removed margin-top */
+    width: 100%;
+    /* Make button full-width */
+    text-align: center;
+    font-weight: 400;
+    /* --- END: MODIFICATION --- */
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.open-folder-btn:hover {
+    background-color: #37373d;
+}
+
+/* --- START: ADD THESE STYLES FOR THE CLONE BUTTON --- */
+/* We can re-use the style from the source control view */
+.source-control-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px;
+    background-color: #2b2d2e;
+    color: #cccccc;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 12px;
+    /* Add margin to separate it */
+    font-weight: 400;
+}
+
+.source-control-btn:hover {
+    background-color: #37373d;
+}
+
+/* --- END: ADD THESE STYLES --- */
+
+/* --- START: ADD THESE NEW STYLES FOR THE CREATION INPUT --- */
+.creation-input-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 10px;
+}
+
+.creation-input {
+    width: 100%;
+    background-color: #3C3C3C;
+    border: 1px solid #007acc;
+    color: #cccccc;
+    padding: 2px 4px;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+/* --- END: ADD THESE NEW STYLES --- */
+
+#explorer-view.visible {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* NEW TREE VIEW STYLES */
+#file-tree-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #535353 transparent;
+    outline: none;
+}
+
+/* --- START: CUSTOM DRAG GHOST --- */
+.ag-drag-ghost {
+    position: fixed;
+    top: -1000px;
+    left: -1000px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    background-color: rgba(0, 122, 204, 0.20);
+    /* 85% opacity for professional translucency */
+    color: #ffffff;
+    border: 1.5px solid #005a9e;
+    /* Full opacity border with slight thickness for contrast */
+    border-radius: 20px;
+    /* Pill shape */
+    font-size: 13px;
+    font-weight: 500;
+    z-index: -10000;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    /* Add subtle blur for extra premium feel */
+}
+
+.ag-drag-ghost i,
+.ag-drag-ghost img {
+    margin: 0 !important;
+    filter: brightness(1.2);
+    width: 14px;
+    height: 14px;
+}
+
+/* --- END: CUSTOM DRAG GHOST --- */
+
+/* --- START: ADD THIS FOCUS STYLE --- */
+#file-tree-container:focus {
+    outline: none;
+}
+
+.tree-root {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: #cccccc;
+    /* Explicit color safety */
+}
+
+/* Ensure the root folder itself is visible and styled like a header */
+.root-folder>.tree-item-header {
+    font-weight: bold;
+    color: #ffffff;
+    padding: 5px 10px;
+}
+
+.tree-item {
+    user-select: none;
+}
+
+.tree-item.folder.not-loaded>.tree-item-header .item-name {
+    opacity: 0.7;
+    /* Dim the name slightly to indicate it's not fully ready */
+}
+
+/* Ensure the header is the positioning context for the full-width highlight */
+/* Ensure the header is the positioning context for the full-width highlight */
+.tree-item-header {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* Slightly more gap for clarity */
+    height: 22px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    overflow: hidden; /* Safety for children flow */
+}
+
+.item-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    color: #cccccc;
+    margin-left: 4px;
+    line-height: 22px;
+    min-width: 40px; /* Ensures at least ~5-6 characters remain visible before further truncation */
+}
+
+/* Remove direct background colors */
+.tree-item-header:hover {
+    background-color: transparent;
+}
+
+.tree-item.active>.tree-item-header {
+    background-color: transparent;
+}
+
+/* THE FULL WIDTH HIGHLIGHT HACK */
+.tree-item-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -1000px;
+    /* Start way to the left */
+    width: 2000px;
+    /* Span way to the right */
+    height: 100%;
+    background-color: transparent;
+    z-index: -1;
+    /* Sit behind the text/icons */
+    transition: background-color 0.05s;
+}
+
+/* Apply highlight colors to the pseudo-element */
+.tree-item-header:hover::before {
+    background-color: #2a2d2e;
+    /* Subtle hover gray */
+}
+
+.tree-item.active>.tree-item-header::before {
+    background-color: #37373d; /* VS Code Unfocused grey selection color */
+    z-index: -1; /* Ensure it stays behind */
+}
+
+/* Apply blue highlight when Explorer is focused */
+#file-tree-container:focus-within .tree-item.active>.tree-item-header::before,
+#file-tree-container:focus .tree-item.active>.tree-item-header::before {
+    background-color: #04395e;
+    /* VS Code Blue active selection color */
+    border-left: 2px solid #007fd4;
+    /* Blue left border */
+}
+
+/* --- DELETE MODAL STYLES --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 100px;
+    z-index: 9999;
+}
+
+.modal-container {
+    background-color: #252526;
+    width: 450px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    color: #cccccc;
+    font-family: var(--vscode-font-family, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+    padding: 20px;
+    border: 1px solid #454545;
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.modal-icon {
+    font-size: 24px;
+    color: #3794ef;
+    margin-top: -2px;
+}
+
+.modal-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+.modal-body {
+    margin-left: 40px;
+    margin-bottom: 24px;
+}
+
+.modal-detail {
+    font-size: 13px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.modal-checkbox input {
+    margin: 0;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.modal-btn {
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+    min-width: 60px;
+    text-align: center;
+}
+
+.modal-btn.primary {
+    background-color: #0078d4;
+    color: white;
+}
+
+.modal-btn.primary:hover {
+    background-color: #106ebe;
+}
+
+.modal-btn.secondary {
+    background-color: #3a3d41;
+    color: #ffffff;
+}
+
+.modal-btn.secondary:hover {
+    background-color: #45494e;
+}
+
+/* Ensure focus highlighting isn't intrusive but works for accessibility */
+.modal-btn:focus {
+    outline: 1px solid #007fd4;
+    outline-offset: 1px;
+}
+
+/* Keep text default if unfocused, make it bright white only when focused */
+#file-tree-container:focus-within .tree-item.active>.tree-item-header .item-name,
+#file-tree-container:focus-within .tree-item.active>.tree-item-header .codicon,
+#file-tree-container:focus .tree-item.active>.tree-item-header .item-name,
+#file-tree-container:focus .tree-item.active>.tree-item-header .codicon {
+    color: #ffffff; /* Bright white text and icons for active items */
+}
+
+/* Fix active indicator line to be on the left edge of the VIEW, not the ITEM */
+.tree-item.active>.tree-item-header::after {
+    /* If we want the blue line on the far left */
+    /* This is hard with nested indentation. Standard VS Code puts it on the item itself if indented?
+       Actually VS Code puts the border on the highlighted row. */
+    content: '';
+    display: none;
+    /* Disabling border for cleaner "Trae AI" look which relies on background */
+}
+
+.tree-item-header .codicon {
+    font-size: 14px;
+    /* Reduced from 16px */
+    color: #cccccc;
+    min-width: 14px;
+    /* Prevent squishing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Specific fix for chevrons to make them smaller/subtler */
+.tree-item-header .codicon-chevron-right,
+.tree-item-header .codicon-chevron-down {
+    font-size: 10px !important;
+    min-width: 16px;
+    /* Maintain alignment width */
+    text-align: center;
+}
+
+.tree-item-chevron-placeholder-dot {
+    min-width: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tree-item-chevron-placeholder-dot::before {
+    content: '';
+    width: 3px;
+    height: 3px;
+    background-color: #666;
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+
+.tree-item-header .file-icon-svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 2px;
+}
+
+.tree-item-children {
+    list-style-type: none;
+    padding-left: 12px;
+    /* Tighter indentation */
+    position: relative;
+    margin: 0;
+}
+
+.tree-item-children.collapsed {
+    display: none;
+}
+
+/* --- START: NEW Modern Scrollbar & Overflow Fix --- */
+/* Modern Overlay Scrollbar for Webkit (Chrome, Edge) */
+#file-tree-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+#file-tree-container::-webkit-scrollbar-track {
+    background: transparent;
+    /* Make track invisible */
+}
+
+#file-tree-container::-webkit-scrollbar-thumb {
+    background: transparent;
+    /* Hide thumb by default */
+    border-radius: 5px;
+}
+
+/* Show the scrollbar thumb ONLY when hovering over the container */
+#file-tree-container:hover::-webkit-scrollbar-thumb {
+    background: #535353;
+}
+
+/* Ellipsis for long file names */
+.tree-item .item-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- END: NEW Modern Scrollbar & Overflow Fix --- */
+
+/* --- START: ADD/REPLACE THESE RULES AT THE END OF THE FILE --- */
+
+
+
+.tree-item-actions {
+    display: none; /* Hide completely to free up space for name */
+    align-items: center;
+    gap: 4px;
+    margin-left: auto; /* Push to the right */
+    padding-right: 4px;
+    flex-shrink: 0; /* Never squash icons */
+}
+
+/* Show actions only when hovering the root folder item */
+.tree-item.root-folder:hover > .tree-item-header .tree-item-actions {
+    display: flex; /* Now they take up space and trigger truncation of name */
+}
+
+.tree-item-actions .action-icon {
+    font-size: 14px;
+    cursor: pointer;
+    color: #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.tree-item-actions .action-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* --- END: NEW/REPLACED RULES --- */
+
+/* --- START: IMPROVED DRAG AND DROP FEEDBACK --- */
+.tree-item.dragging {
+    opacity: 0.6;
+}
+
+/* When dragging, we hide the "full-width hack" background and use a tight, content-sized background instead.
+   This ensures the browser's drag ghost image is sharp and properly sized. */
+.tree-item.dragging .tree-item-header::before {
+    left: 0;
+    width: 100%;
+    background-color: #2a2d2e;
+    border-radius: 4px;
+}
+
+.tree-item.dragging .tree-item-header {
+    /* No width override needed here as setTimeout handles the ghost image capture */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* --- END: IMPROVED DRAG AND DROP FEEDBACK --- */
+
+/* --- START: ADD THESE NEW STYLES FOR INDENTATION GUIDES --- */
+
+/* The indentation guide line itself. It's created on the container
+   that holds the children of a folder. */
+.tree-item-children::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 6px;
+    /* Positions the line in the middle of the 12px padding */
+    width: 1px;
+    height: 100%;
+    background-color: #444444;
+    /* The color of the vertical line */
+    opacity: 0;
+    /* The line is hidden by default */
+    z-index: 2;
+    /* Stay above the full-width selection background */
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    /* A smooth fade effect */
+}
+
+/* This rule makes the guide line visible ONLY when the parent container
+   has the 'show-indent-guides' class and the folder is not collapsed. */
+#file-tree-container.show-indent-guides .tree-item.folder>.tree-item-children:not(.collapsed)::before {
+    opacity: 1;
+}
+
+/* --- END: ADD THESE NEW STYLES FOR INDENTATION GUIDES --- */

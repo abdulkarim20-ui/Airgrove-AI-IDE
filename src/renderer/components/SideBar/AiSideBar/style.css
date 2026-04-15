@@ -1,0 +1,2517 @@
+/* AI Sidebar Styles */
+@import "./plusMenu.css";
+@import "./CodeBlock.css";
+@import "./AiEditReviewPanel.css";
+
+/* ============================================================ 
+   ROOT ATTRIBUTES & VARIABLES
+   ============================================================ */
+:root {
+  --ai-font: "Segoe UI", "Segoe WPC", system-ui, -apple-system, sans-serif;
+  --ai-font-mono: "Consolas", "Monaco", monospace;
+  --ai-font-size: 13px;
+  --ai-font-size-small: 12.5px;
+  --badge-bg: #1e1e1e;
+  --badge-border: #2a2a2a;
+  --badge-hover: #2a2d2e;
+  --badge-border-hover: #3c3c3c;
+}
+
+/* ============================================================
+   AGENT ACTIVITY TIMELINE (Cursor-style, always visible)
+   ============================================================ */
+
+.ag-activity-timeline {
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.ag-activity-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Individual step row - Back to simple row */
+.ag-activity-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Precise gap for consistent alignment */
+  padding: 3.5px 0;
+  margin: 1px 0;
+  font-family: var(--ai-font);
+  font-size: var(--ai-font-size);
+  color: #cccccc;
+  transition: opacity 0.2s;
+}
+
+.ag-step-running {
+  color: #eeeeee;
+}
+
+.ag-step-done {
+  color: #6b7280;
+}
+
+/* Filename Badge - Only appears on filename when hovered */
+.ag-file-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  color: #eeeeee;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.ag-file-badge:hover {
+  background: var(--badge-bg);
+  border-color: var(--badge-border);
+  color: #ffffff;
+}
+
+.ag-file-badge .ag-file-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  filter: grayscale(0.3);
+  transition: filter 0.1s;
+}
+
+.ag-file-badge:hover .ag-file-icon {
+  filter: grayscale(0);
+}
+
+.ag-file-name {
+  font-family: var(--ai-font);
+  font-size: var(--ai-font-size);
+  font-weight: 500;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.ag-step-files {
+  padding: 2px 0 4px 0;
+}
+
+.ag-step-icon {
+  font-size: 12px;
+  min-width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ag-step-icon-img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.ag-step-label {
+  color: #eeeeee;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ag-step-detail {
+  color: #6b7280;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 0 1 auto;
+  margin-right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ag-range-pill {
+  font-family: var(--ai-font);
+  font-size: var(--ai-font-size);
+  color: #6b7280;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ag-step-diff {
+  font-size: var(--ai-font-size);
+  font-family: var(--vscode-editor-font-family, monospace);
+  margin-left: auto;
+  margin-right: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ag-diff-added {
+  color: #4caf50;
+  margin-right: 4px;
+}
+
+.ag-diff-removed {
+  color: #f44336;
+}
+
+.ag-step-badge {
+  font-size: 10px;
+  white-space: nowrap;
+  margin-left: auto;
+  flex-shrink: 0;
+  min-width: 16px;
+  text-align: right;
+  display: flex;
+  align-items: center;
+}
+
+.ag-step-diff + .ag-step-badge {
+  margin-left: 0;
+}
+
+.ag-badge-running {
+  color: #858585;
+  /* Subtle grey like other icons */
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.ag-badge-running::before {
+  content: '⠋';
+  display: inline-block;
+  animation: ag-npm-loader 0.8s steps(1) infinite;
+}
+
+@keyframes ag-npm-loader {
+  0% {
+    content: '⠋';
+  }
+
+  11% {
+    content: '⠙';
+  }
+
+  22% {
+    content: '⠹';
+  }
+
+  33% {
+    content: '⠸';
+  }
+
+  44% {
+    content: '⠼';
+  }
+
+  55% {
+    content: '⠴';
+  }
+
+  66% {
+    content: '⠦';
+  }
+
+  77% {
+    content: '⠧';
+  }
+
+  88% {
+    content: '⠇';
+  }
+}
+
+.ag-badge-done {
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.ag-badge-failed {
+  color: #fa7e7e;
+  font-weight: 700;
+}
+
+@keyframes ag-pulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Web Search Result Card Styles */
+.ai-web-search-card {
+  background: var(--vscode-editor-background, #1e1e1e);
+  border: 1px solid var(--vscode-widget-border, #333);
+  border-radius: 8px;
+  margin: 12px 0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-web-search-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid var(--vscode-widget-border, #333);
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ai-web-search-card.collapsed .ai-web-results-list {
+  display: none;
+}
+
+.ai-web-search-icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.ai-web-search-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vscode-foreground, #cccccc);
+  flex-grow: 1;
+  min-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-web-search-count {
+  font-size: 10px;
+  opacity: 0.6;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 6px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.ai-web-search-chevron {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.7;
+}
+
+.ai-web-search-card.collapsed .ai-web-search-chevron {
+  transform: rotate(-90deg);
+}
+
+.ai-web-results-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ai-web-result-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ai-web-favicon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.ai-web-result-row:last-child {
+  border-bottom: none;
+}
+
+.ai-web-result-row:hover {
+  background: rgba(77, 170, 252, 0.08);
+}
+
+.ai-web-result-row:active {
+  transform: scale(0.995);
+}
+
+.ai-web-result-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;
+  /* Critical for ellipsis on children */
+}
+
+.ai-web-result-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4daafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.ai-web-result-url {
+  font-size: 10px;
+  opacity: 0.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.ai-web-result-open {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.ai-web-result-row:hover .ai-web-result-open {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ai-web-more {
+  padding: 6px 12px;
+  font-size: 10px;
+  opacity: 0.5;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--vscode-widget-border, #333);
+}
+
+.ag-web-query {
+  color: #4daafc;
+  /* Theme blue for active query */
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.ag-step-done .ag-web-query {
+  color: #6b7280;
+  /* Gray out when done to maintain focus on results */
+}
+
+/* File sub-rows inside a search step */
+.ag-file-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 18px;
+}
+
+.ag-file-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.ag-file-row:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.ag-file-icon {
+  width: 13px;
+  height: 13px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+
+
+
+
+/* Terminal Block Styling */
+.ag-terminal-block {
+  margin: 12px 0;
+  width: 100%;
+  max-width: 100%;
+  /* Fully maximize the space in the sidebar */
+  border-radius: 6px;
+  border: 1px solid #333333;
+  background: #181818;
+  font-family: var(--ai-font-mono);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.ag-terminal-top-header {
+  background: transparent;
+  padding: 7px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #2a2d2e;
+  font-size: 11px;
+  gap: 8px;
+}
+
+/* Left side: icon + folder name */
+.ag-terminal-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ag-terminal-icon {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.ag-terminal-title {
+  color: #8b949e;
+  font-family: var(--ai-font);
+  font-size: 11px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right side: spinner + cancel */
+.ag-terminal-right {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+/* Circular spinner */
+.ag-terminal-spinner {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid rgba(204,204,204,0.15);
+  border-top-color: #cccccc;
+  border-radius: 50%;
+  animation: ag-term-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes ag-term-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Cancel button */
+.ag-terminal-cancel-btn {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: #9d9d9d;
+  font-family: var(--ai-font);
+  font-size: 11px;
+  padding: 1px 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1.6;
+}
+
+.ag-terminal-cancel-btn:hover {
+  background: rgba(255,255,255,0.06);
+  color: #e0e0e0;
+}
+
+/* Legacy actions (unused now, kept for safety) */
+.ag-terminal-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #8b949e;
+  font-family: var(--ai-font);
+}
+
+.ag-terminal-command-bar {
+  padding: 7px 12px 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-family: var(--ai-font-mono);
+  background: transparent;
+  gap: 6px;
+}
+
+.ag-terminal-command-text {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  overflow: hidden;
+  flex-wrap: wrap;   /* allow $ to stay, command wraps below */
+  min-width: 0;
+  flex: 1;
+}
+
+.ag-terminal-cwd {
+  color: #8b949e;
+  white-space: nowrap;
+}
+
+/* $ prompt — amber/yellow */
+.ag-terminal-dollar {
+  color: #ffca28;
+  font-weight: 600;
+  flex-shrink: 0;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Command text — white, wraps to multiple lines */
+.ag-terminal-cmd {
+  color: #ffffff;
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-width: 0;
+  flex: 1;
+}
+
+.ag-terminal-copy-btn {
+  color: #8b949e;
+  cursor: pointer;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;   /* stays on first row when command wraps */
+  background: none;
+  border: none;
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: color 0.15s, background 0.15s;
+}
+
+.ag-terminal-copy-btn:hover {
+  color: #c9d1d9;
+  background: rgba(255,255,255,0.06);
+}
+
+/* Chevron toggle button */
+.ag-terminal-chevron {
+  background: none;
+  border: none;
+  padding: 1px 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.ag-terminal-chevron:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.ag-terminal-chevron svg {
+  transition: transform 0.2s ease;
+  display: block;
+}
+
+/* View in terminal button (shown after command finishes) */
+.ag-terminal-view-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: #8b949e;
+  font-family: var(--ai-font);
+  font-size: 11px;
+  padding: 2px 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.ag-terminal-view-btn:hover {
+  background: rgba(255,255,255,0.06);
+  color: #c9d1d9;
+}
+
+.ag-terminal-view-icon {
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.ag-terminal-body {
+  padding: 0 12px 6px 12px;
+  min-height: 0;
+  /* Height is driven by xterm rows — no fixed max, grows naturally */
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+}
+
+/* Ensure xterm fits well */
+.ag-terminal-body .xterm {
+  padding: 0;
+}
+
+.ag-terminal-body .xterm-viewport {
+  background-color: transparent !important;
+}
+
+.ag-terminal-body .xterm-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ag-terminal-body .xterm-viewport::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+.ag-terminal-body .xterm-viewport::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Footer removed — exit code and always-run labels no longer shown */
+.ag-terminal-footer { display: none; }
+
+
+#secondary-sidebar-container {
+  background-color: var(--bg-sidebar);
+  color: #cccccc;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: visible;
+  /* Allow dropdowns to overlay outside sidebar area */
+  position: relative;
+  z-index: 5;
+  border-left: var(--border-width) solid var(--border-color);
+  /* Matching primary sidebar border width */
+  box-sizing: border-box;
+  font-family: var(--ai-font);
+  font-size: var(--ai-font-size);
+  user-select: none;
+}
+
+#secondary-sidebar-resizer {
+  position: absolute;
+  top: 0;
+  left: -4px; /* Straddle the border */
+  width: 8px; /* Wider hit-zone */
+  height: 100%;
+  cursor: ew-resize;
+  background-color: transparent;
+  z-index: 1000;
+  transition: background-color 0.1s;
+}
+
+#secondary-sidebar-resizer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0; /* Align with container border on the left side (resizer is at left:-4px) */
+  width: 4px;
+  height: 100%;
+  background-color: transparent;
+  transition: background-color 0.1s;
+}
+
+/* Highlight while dragging */
+body.resizing-secondary #secondary-sidebar-resizer::after {
+  background-color: transparent; /* Rely on container border highlight */
+}
+
+/* --- Header --- */
+.ai-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px; /* Reduced vertical padding to allow perfect centering */
+  height: 35px;    /* Match height of the editor tabs */
+  box-sizing: border-box;
+  border-bottom: 1px solid #252526; /* Border below the history/new chat buttons */
+}
+
+.ai-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #9ca3af;
+  /* Muted grey */
+  text-transform: uppercase;
+}
+
+.ai-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.ai-header-separator {
+  width: 1px;
+  height: 16px;
+  background-color: #454545;
+  /* Lighter than main bg to be visible */
+  margin: 0;
+}
+
+.ai-icon-btn {
+  cursor: pointer;
+  color: #9ca3af;
+  padding: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.1s, background-color 0.1s;
+}
+
+.ai-icon-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.ai-icon-btn i {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-icon-btn img {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+/* --- Content Area --- */
+.ai-content-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* Messages start from top */
+  overflow: hidden;
+  position: relative;
+  min-width: 300px;
+}
+
+.ai-content-area.empty {
+  display: grid !important;
+  place-items: center;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Custom Scrollbar for AI Sidebar */
+.ai-messages-list::-webkit-scrollbar {
+  width: 2px;
+  /* Super slim (half of 4px) */
+}
+
+.ai-messages-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ai-messages-list::-webkit-scrollbar-thumb {
+  background: #333;
+  /* Subtle dark grey */
+  border-radius: 4px;
+}
+
+.ai-messages-list:hover::-webkit-scrollbar-thumb {
+  background: #555;
+  /* Lighter on hover */
+}
+
+.ai-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 16px;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  animation: bg-fade-in 0.4s ease-out;
+}
+
+.ai-empty-logo-container {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.ai-empty-logo-container img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  opacity: 0.6;
+}
+
+.ai-empty-title {
+  font-family: var(--ai-font);
+  font-size: 22px;
+  font-weight: 600;
+  color: #9ca3af;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.2px;
+}
+
+.ai-empty-title .highlight {
+  color: #ffffff;
+}
+
+
+
+.ai-empty-desc {
+  font-family: var(--ai-font);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #8b949e;
+  max-width: 400px;
+  width: 90%;
+  margin: 0;
+  opacity: 0.8;
+}
+
+@keyframes bg-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* 
+   We wrap everything in a "card" look: 
+   darkbg, border, rounded corners 
+*/
+/* 3. Input Section Wrapper */
+.ai-input-section {
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+  margin-top: 0;
+  padding: 0;
+  min-width: 280px;
+  flex-shrink: 0;
+  overflow: visible;
+  /* Ensure children like menus are visible */
+  z-index: 100;
+  /* Ensure it stays above content area when menus open */
+}
+
+.ai-input-box {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-sidebar);
+  border: 1px solid #323336;
+  border-radius: 10px;
+  /* Full rounded corners now that header is gone */
+  overflow: visible;
+  transition: border-color 0.2s;
+  position: relative;
+}
+
+.ai-input-box:focus-within {
+  border-color: #555555;
+}
+
+/* AI Attachment Preview */
+.ai-attachment-preview {
+  padding: 10px 12px 6px 12px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.ai-attachment-preview::-webkit-scrollbar {
+  display: none;
+}
+
+.ai-attachment-preview.hidden {
+  display: none;
+}
+
+.ai-attachment-item {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  background: #2a2d2e;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3c3c3c;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.ai-attachment-item img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 3px;
+  object-fit: cover;
+}
+
+.ai-attachment-delete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border-radius: 4px;
+  display: none;
+  /* Hidden by default */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(1px);
+}
+
+.ai-attachment-item:hover .ai-attachment-delete {
+  display: flex;
+}
+
+.ai-attachment-delete i {
+  font-size: 14px;
+  background: #222;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Chat Attachment Styling */
+.ai-chat-attachment-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.ai-chat-attachment-img {
+  width: 66px;
+  height: 66px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.ai-chat-attachment-img:hover {
+  transform: scale(1.05);
+}
+
+
+
+/* 2. Textarea */
+.ai-main-input {
+  width: 100%;
+  min-height: 60px;
+  max-height: 200px;
+  background-color: transparent;
+  border: none;
+  padding: 12px;
+  color: #e5e5e5;
+  font-family: inherit;
+  font-size: 13px;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.ai-main-input::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ai-main-input::-webkit-scrollbar-thumb {
+  background: #3f4148;
+  border-radius: 4px;
+}
+
+.ai-main-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ai-main-input::placeholder {
+  color: #52525b;
+  /* Very muted placeholder */
+}
+
+/* 3. Toolbar */
+.ai-input-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background-color: transparent;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toolbar-group.left {
+  flex: 1;
+  min-width: 0;
+  overflow: visible;
+}
+
+.toolbar-group.right {
+  flex-shrink: 0;
+}
+
+.tool-btn {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: color 0.1s;
+}
+
+.tool-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Model Selector */
+.model-selector {
+  position: relative;
+}
+
+.model-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #ffffff;
+  background-color: transparent;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.model-dropdown:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.ai-mic-btn {
+  background-color: #2b2d31 !important;
+  border: none !important;
+  border-radius: 4px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.ai-mic-btn:hover {
+  background-color: #3f4148 !important;
+}
+
+.model-dropdown .current-model {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  /* Improved space for long model names */
+  line-height: 1;
+  /* Match icon's height better */
+}
+
+.current-model-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+  /* To ensure it doesn't take line-height into account strangely */
+}
+
+/* Dropdown Menu */
+.model-dropdown-menu {
+  position: absolute;
+  bottom: 0;
+  /* Align with bottom of selector */
+  right: 0;
+  transform: translateY(-32px);
+  /* Shift UP above the toolbar */
+  margin-bottom: 8px;
+  background-color: #202123;
+  border: 1px solid #323336;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  min-width: 268px;
+  padding: 4px;
+  z-index: 2000;
+}
+
+.model-dropdown-menu.hidden {
+  display: none;
+}
+
+/* Model Menu Header */
+.model-menu-header {
+  padding: 6px 12px;
+  font-size: 11px;
+  color: #858585;
+  font-weight: 500;
+  text-transform: uppercase;
+  /* Match requested style */
+  pointer-events: none;
+}
+
+.model-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #cccccc;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.1s;
+}
+
+.model-option:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Slight hover */
+  color: #ffffff;
+}
+
+.model-option.selected {
+  background-color: rgba(255, 255, 255, 0.1);
+  /* Visible selection background */
+  color: #ffffff;
+}
+
+/* Send Button Area */
+
+.send-submit-btn {
+  background-color: #ffffff;
+  /* Pure White BG */
+  border: none;
+  border-radius: 50%;
+  /* Perfectly Circular */
+  width: 26px;
+  /* Slightly larger for a premium feel */
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 6px;
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+  /* Added a shadow slightly to make the white button pop on the grey sidebar */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.send-icon {
+  width: 16px;
+  height: 16px;
+  /* Important: Invert the icon color to be dark on white */
+  filter: brightness(0);
+  opacity: 1;
+  /* Sharp dark-on-white appearance */
+  transition: transform 0.2s;
+}
+
+.send-submit-btn:disabled {
+  background-color: rgba(255, 255, 255, 0.4);
+  /* 40% white opacity background */
+  cursor: default;
+  box-shadow: none;
+  opacity: 0.5;
+  /* Emphasize inactive phase */
+}
+
+.send-submit-btn:disabled .send-icon {
+  filter: none;
+  /* Reset filter for grey color on dark bg when disabled */
+  opacity: 0.7;
+  /* Better visibility in disabled state */
+}
+
+.send-submit-btn:not(:disabled):hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.send-submit-btn:not(:disabled):hover .send-icon {
+  transform: translateY(-1px);
+}
+
+/* Stop Button State */
+.send-submit-btn.stop-btn {
+  background-color: #ffffff;
+  /* Pure White for Stop too */
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  /* Slightly stronger shadow for stop state */
+}
+
+.send-submit-btn.stop-btn .send-icon {
+  filter: brightness(0);
+  /* Dark icon on white */
+  opacity: 0.9;
+}
+
+.send-submit-btn.stop-btn:hover {
+  background-color: #fcebeb;
+  /* Subtle red tint on hover for stop feeling */
+  transform: scale(1.1);
+}
+
+/* --- CHAT MESSAGES STYLES --- */
+.ai-messages-list {
+  overflow-x: hidden;
+  flex: 1;
+  padding: 16px;
+  padding-bottom: 10px;
+  /* Reduced gap to input area */
+  overflow-y: auto;
+  /* Scroll ONLY the messages */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* Reduced from 24px */
+  height: 100%;
+  /* Take full height of content area */
+}
+
+.ai-message {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  /* Reduced from 6px */
+  width: 100%;
+}
+
+.user-message {
+  align-items: flex-end;
+}
+
+.assistant-message {
+  align-items: flex-start;
+}
+
+/* Header Styles */
+.ai-message-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.user-header {
+  flex-direction: row;
+  /* Avatar then Name */
+  justify-content: flex-end;
+}
+
+.assistant-header {
+  flex-direction: row;
+}
+
+
+
+.ai-message-name {
+  cursor: default;
+  font-size: 11px;
+  font-weight: 700;
+  color: #e7e7e7;
+  /* text-transform: uppercase; Removed to show 'Lumira' instead of 'LUMIRA' */
+  letter-spacing: 0.5px;
+}
+
+/* Content Styles */
+.ai-message-content {
+  width: 100%;
+  overflow-wrap: anywhere;
+  user-select: text;
+  cursor: text;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #e5e5e5;
+  word-wrap: break-word;
+  max-width: 90%;
+  min-height: 1em;
+}
+
+.user-message .ai-message-content {
+  color: #ffffff;
+  text-align: right;
+  /* Optional: Background bubble for user if desired, but user asked for "show at right" 
+     and "mimic same". Standard chat usually has bubbles. 
+     If mimics 'Beam', it might be plain text. 
+     I'll stick to plain text for now as per previous, but aligned right. */
+}
+
+/* Actions Row (Copy/Retry) */
+.ai-message-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 1px;
+  /* Halved from 2px */
+  margin-left: auto;
+  /* Buttons aligned to right */
+  opacity: 1;
+  /* Always visible */
+  visibility: visible;
+}
+
+.ai-message:hover .ai-message-actions {
+  opacity: 1;
+}
+
+.ai-action-btn {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.1s, color 0.1s;
+}
+
+.ai-action-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.ai-action-btn img {
+  opacity: 1;
+}
+
+/* Sandbox Terminal Copy Icon */
+.ai-sandbox-copy-img {
+  width: 14px;
+  height: 14px;
+  opacity: 1;
+  cursor: pointer;
+}
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.1s, background 0.1s;
+}
+
+.ai-action-btn:hover {
+  color: #e5e5e5;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.ai-action-btn i {
+  font-size: 14px;
+}
+
+.ai-action-btn img {
+  opacity: 0.7;
+  transition: opacity 0.1s;
+}
+
+.ai-action-btn:hover img {
+  opacity: 1;
+}
+
+/* Thinking/Analyzing State - REMOVED OLD PILL STYLES */
+.ai-message.thinking {
+  align-items: flex-start;
+}
+
+.ai-sidebar-thinking-wrapper {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0; /* Align with tool call icons */
+}
+
+@keyframes spin-sparkle {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes pulse-border {
+  0% {
+    border-color: #333;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    border-color: #555;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+  }
+
+  100% {
+    border-color: #333;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+/* Hidden class */
+.hidden {
+  display: none !important;
+}
+
+/* New User Layout */
+
+.user-reply-icon {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.user-reply-icon-img {
+  position: absolute;
+  right: 12px;
+  bottom: 11px;
+  /* Perfectly aligned with the 1.5 line-height of the 13px text */
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.ai-message-bubble:hover .user-reply-icon-img {
+  opacity: 1;
+}
+
+/* Align with text top */
+
+.ai-message-bubble {
+  position: relative;
+  /* Base for internal icons */
+  background-color: #2b2d31;
+  /* Matched to inspiration image */
+  padding: 10px 36px 10px 16px;
+  /* Balanced 10px top/bottom for perfect text centering */
+  /* Space for the icon in user bubble */
+  border-radius: 8px;
+  color: #e5e5e5;
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 95%;
+  word-wrap: break-word; /* legacy */
+  overflow-wrap: anywhere; /* modern wrapping */
+  word-break: break-word; /* specifically for URLs in some browsers */
+}
+
+.user-message .ai-message-bubble {
+  align-self: flex-end;
+  width: fit-content;
+  max-width: 90%;
+  text-align: left;
+  background-color: #E0E2F214;
+  padding: 8px 36px 8px 12px;
+  border-top-right-radius: 0;
+}
+
+.assistant-message .ai-message-bubble {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  width: 100%;
+}
+
+.user-message .ai-message-content {
+  display: none;
+  /* Hide old content div if present, we use bubble now */
+}
+
+/* Assistant Styling Update */
+
+/* Thought Process Toggle */
+.ai-thought-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #2b2d31;
+  /* Subtle dark bg */
+  padding: 4px 8px;
+  border-radius: 6px;
+  width: fit-content;
+  margin-top: 4px;
+  /* Space from header */
+  margin-bottom: 4px;
+  /* Space to content */
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.ai-thought-toggle:hover {
+  background-color: #3f4148;
+}
+
+.ai-thought-text {
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.ai-thought-icon {
+  font-size: 12px;
+  color: #9ca3af;
+  transition: transform 0.2s;
+}
+
+.ai-thought-toggle.expanded .ai-thought-icon {
+  transform: rotate(90deg);
+  /* Rotate down when expanded */
+}
+
+/* Markdown & Code Block Styling */
+.ai-markdown-content {
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.ai-markdown-content p {
+  margin: 0 0 4px 0;
+  /* Halved from 8px */
+}
+
+.ai-markdown-content strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Inline Code - only style if NOT in a pre block */
+.ai-markdown-content code:not(pre code) {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 12px;
+  color: #ce9178;
+}
+
+
+/* Thoughts & Tool InteractionBody */
+
+/* Thought Body */
+.ai-thought-body {
+  padding: 8px 12px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #858585;
+  /* Gray text for thoughts */
+  line-height: 1.4;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-style: italic;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Tool Usage Styles */
+.ai-tool-usage {
+  margin: 8px 0;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background-color: #1e1e1e;
+  overflow: hidden;
+  width: 100%;
+}
+
+.ai-tool-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #252526;
+  border-bottom: 1px solid #333;
+  /* Only if content follows */
+  font-size: 12px;
+  color: #cccccc;
+}
+
+/* Remove border bottom if no content (searching state?) - handle in JS or just keep it */
+.ai-tool-header.read-mode {
+  gap: 0;
+  /* Let children handle their own spacing */
+}
+
+.ai-tool-header .codicon-search {
+  color: #4daafc;
+  /* Light Blue */
+}
+
+.ai-tool-header .result-count {
+  font-size: 11px;
+  color: #858585;
+  background-color: #333;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.ai-tool-content {
+  padding: 0;
+}
+
+.ai-tool-file-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+}
+
+.ai-tool-file-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ai-tool-file-item:hover {
+  background-color: #2a2d2e;
+}
+
+.ai-tool-file-item .file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-tool-more {
+  font-size: 11px;
+  padding: 4px 12px 8px 12px;
+}
+
+/* Sandbox / Terminal Tool Styles */
+/* Sandbox / Terminal Tool Styles */
+.ai-sandbox-tool {
+  font-family: 'Consolas', 'Courier New', monospace;
+  background-color: #1e1e1e;
+  /* Standard VS Code Editor BG */
+  border: 1px solid #333;
+  border-radius: 6px;
+  margin: 10px 0;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: block;
+  /* Use block to avoid flex strictures on children */
+}
+
+.ai-sandbox-header {
+  background-color: #252526;
+  /* Title bar color */
+  border-bottom: 1px solid #2d2d2d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  height: 28px;
+  box-sizing: border-box;
+}
+
+.ai-sandbox-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  font-size: 11px;
+  color: #cccccc;
+}
+
+.ai-sandbox-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-sandbox-cwd {
+  color: #858585;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.ai-sandbox-output {
+  padding: 12px;
+  background-color: #1e1e1e;
+  /* Match terminal bg */
+  color: #cccccc;
+  font-size: 12px;
+  line-height: 1.5;
+
+  /* CRITICAL RESTORATION: Use pre-wrap to respect terminal spacing. 
+     We fixed the javascript indentation so this is now safe and correct. */
+  white-space: pre-wrap !important;
+
+  word-wrap: break-word;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: 'Consolas', 'Menlo', monospace;
+  text-align: left;
+  /* Ensure strict left align */
+  display: block;
+}
+
+/* Custom scrollbar for terminal output */
+.ai-sandbox-output::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ai-sandbox-output::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.ai-sandbox-output::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 0;
+}
+
+.ai-sandbox-output::-webkit-scrollbar-thumb:hover {
+  background: #5a5a5a;
+}
+
+/* Terminal Text Colors */
+.term-ps {
+  color: #569cd6;
+}
+
+/* PowerShell blue-ish */
+.term-path {
+  color: #4daafc;
+}
+
+/* Path color */
+.term-arrow {
+  color: #cccccc;
+}
+
+.term-cmd {
+  color: #dcdcaa;
+  font-weight: bold;
+}
+
+/* Command Yellow */
+.term-success {
+  color: #a9dc76;
+}
+
+.term-error {
+  color: #f14c4c;
+}
+
+.term-muted {
+  color: #6b7280;
+}
+
+.codicon-copy {
+  cursor: pointer;
+  color: #858585;
+}
+
+.codicon-copy:hover {
+  color: #ffffff;
+}
+
+/* /* --- Consolidated AI File Branding (End of File Clean) --- */
+/* /* --- Consolidated AI File Branding (New) --- */
+.ag-inline-badge {
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
+/* Cleaned up Redundancy */
+
+/* AI Generated Image */
+.ai-generated-image-container {
+  margin: 12px 0 4px 0;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
+}
+
+.ai-generated-image-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #333;
+  line-height: 0;
+  transition: border-color 0.2s;
+}
+
+.ai-generated-image-wrapper:hover {
+  border-color: #555;
+}
+
+.ai-generated-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ai-image-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ai-generated-image-wrapper:hover .ai-image-overlay {
+  opacity: 1;
+}
+
+.ai-image-info {
+  color: #fff;
+  font-size: 10px;
+  font-family: var(--ai-font-mono);
+}
+
+/* Standardizing the ImageGen Tool UI */
+.ag-step-image-gen {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+
+/* Ensure the filename doesn't shift */
+.ag-step-image-gen .ag-file-badge {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.ag-sparkle-icon {
+  width: 14px;
+  height: 14px;
+  filter: drop-shadow(0 0 2px #a855f7);
+  vertical-align: middle;
+}
+
+.ag-step-running .ag-sparkle-icon {
+  animation: ag-sparkle-pulse 1.5s infinite ease-in-out;
+}
+
+.ag-image-gen-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #a855f7;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding-right: 4px;
+}
+
+.ag-loading-dots::after {
+  content: ' .';
+  animation: ag-dots 1.5s steps(5, end) infinite linear;
+  display: inline-block;
+  width: 12px;
+  text-align: left;
+}
+
+@keyframes ag-sparkle-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.25);
+    opacity: 0.8;
+  }
+}
+
+@keyframes ag-dots {
+
+  0%,
+  20% {
+    content: ' .';
+  }
+
+  40% {
+    content: ' ..';
+  }
+
+  60% {
+    content: ' ...';
+  }
+
+  80%,
+  100% {
+    content: '';
+  }
+}
+
+/* Custom styling for the resolve label in image gen */
+.ag-step-done.ag-step-image-gen .ag-image-gen-label {
+  color: #4caf50;
+}
+
+/* ============================================================ 
+   DRAG AND DROP FEEDBACK
+   ============================================================ */
+.ai-main-input.drag-over {
+  border: 1px dashed #007acc;
+  /* IDE accent color */
+  background-color: rgba(0, 122, 204, 0.05);
+}
+
+/* AI Status Checkpoint */
+.ai-status-checkpoint {
+  margin: 12px 16px;
+  padding: 16px;
+  background-color: #25262b;
+  border: 1px solid #3c3c3c;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: bg-fade-in 0.3s ease-out;
+}
+
+.ai-status-msg {
+  font-size: 13px;
+  color: #eeeeee;
+  line-height: 1.5;
+}
+
+.ai-continue-btn {
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.ai-continue-btn:hover {
+  background-color: #0086ef;
+}
+
+.ai-abort-btn {
+  background-color: transparent;
+  color: #fa7e7e;
+  border: 1px solid #fa7e7e;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* /* --- Consolidated AI File Branding (End of File Clean) --- */
+/* /* --- Consolidated AI File Branding (New) --- */
+.ag-inline-badge {
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
+/* Cleaned up Redundancy */
+
+/* AI Generated Image */
+.ai-generated-image-container {
+  margin: 12px 0 4px 0;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
+}
+
+.ai-generated-image-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #333;
+  line-height: 0;
+  transition: border-color 0.2s;
+}
+
+.ai-generated-image-wrapper:hover {
+  border-color: #555;
+}
+
+.ai-generated-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ai-image-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ai-generated-image-wrapper:hover .ai-image-overlay {
+  opacity: 1;
+}
+
+.ai-image-info {
+  color: #fff;
+  font-size: 10px;
+  font-family: var(--ai-font-mono);
+}
+
+/* Standardizing the ImageGen Tool UI */
+.ag-step-image-gen {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+
+/* Ensure the filename doesn't shift */
+.ag-step-image-gen .ag-file-badge {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.ag-sparkle-icon {
+  width: 14px;
+  height: 14px;
+  filter: drop-shadow(0 0 2px #a855f7);
+  vertical-align: middle;
+}
+
+.ag-step-running .ag-sparkle-icon {
+  animation: ag-sparkle-pulse 1.5s infinite ease-in-out;
+}
+
+.ag-image-gen-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #a855f7;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding-right: 4px;
+}
+
+.ag-loading-dots::after {
+  content: ' .';
+  animation: ag-dots 1.5s steps(5, end) infinite linear;
+  display: inline-block;
+  width: 12px;
+  text-align: left;
+}
+
+@keyframes ag-sparkle-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.25);
+    opacity: 0.8;
+  }
+}
+
+@keyframes ag-dots {
+
+  0%,
+  20% {
+    content: ' .';
+  }
+
+  40% {
+    content: ' ..';
+  }
+
+  60% {
+    content: ' ...';
+  }
+
+  80%,
+  100% {
+    content: '';
+  }
+}
+
+/* Custom styling for the resolve label in image gen */
+.ag-step-done.ag-step-image-gen .ag-image-gen-label {
+  color: #4caf50;
+}
+
+/* ============================================================ 
+   DRAG AND DROP FEEDBACK
+   ============================================================ */
+.ai-main-input.drag-over {
+  border: 1px dashed #007acc;
+  /* IDE accent color */
+  background-color: rgba(0, 122, 204, 0.05);
+}
+
+/* AI Status Checkpoint */
+.ai-status-checkpoint {
+  margin: 12px 16px;
+  padding: 16px;
+  background-color: #25262b;
+  border: 1px solid #3c3c3c;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: bg-fade-in 0.3s ease-out;
+}
+
+.ai-status-msg {
+  font-size: 13px;
+  color: #eeeeee;
+  line-height: 1.5;
+}
+
+.ai-continue-btn {
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.ai-continue-btn:hover {
+  background-color: #0086ef;
+}
+
+.ai-abort-btn {
+  background-color: transparent;
+  color: #fa7e7e;
+  border: 1px solid #fa7e7e;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.ai-abort-btn:hover {
+  background-color: rgba(250, 126, 126, 0.1);
+}
+
+/* ============================================================
+   FILES MODIFIED LOG (Chat History)
+   ============================================================ */
+
+.ai-files-modified-container {
+  margin: 8px 0 2px 0;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ai-files-modified-header {
+  font-size: 13.008px;
+  font-weight: 400;
+  color: #cccccc;
+  opacity: 0.7;
+  letter-spacing: normal;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  font-family: "Segoe WPC", "Segoe UI", sans-serif;
+}
+
+.ai-files-modified-pill {
+  background: rgba(255, 255, 255, 0.1);
+  color: #999;
+  padding: 0px 5px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-left: 2px;
+}
+
+.ai-files-modified-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  overflow: hidden;
+  /* Prevent parent from showing scrollbar */
+}
+
+.ai-files-modified-chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  flex: 1;
+  padding: 6px 0;
+}
+
+.ai-files-modified-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.ai-mod-chevron {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  cursor: pointer;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.12s ease;
+  flex-shrink: 0;
+}
+
+.ai-mod-chevron:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.ai-mod-chevron.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ai-file-mod-chip {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 4px 1px 2px;
+  /* Precision padding from image */
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  flex-shrink: 0;
+  max-width: 180px;
+}
+
+.ai-file-mod-chip:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.ai-file-mod-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.ai-file-mod-name {
+  font-size: 13.008px;
+  /* Precise font-size from image */
+  font-weight: 500;
+  color: #cccccc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Segoe WPC", "Segoe UI", sans-serif;
+}
+
+.ai-file-mod-chip:hover .ai-file-mod-name {
+  color: #fff;
+}
+
+.ai-messages-list {
+  overflow-x: hidden;
+}
+
+.ai-message {
+  min-width: 0;
+}
+
+.ai-files-modified-container,
+.ai-files-modified-wrapper,
+.ai-files-modified-chips {
+  min-width: 0 !important;
+}
+
+/* Inline Web Search Toggle Styles */
+.ag-activity-step.ag-web-expandable {
+  flex-wrap: wrap !important;
+  cursor: pointer;
+  transition: background 0.2s;
+  padding-bottom: 4px;
+}
+
+.ag-activity-step.ag-web-expandable:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.ag-activity-step.ag-web-expandable .ag-step-detail {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 4px;
+}
+
+.ag-badge-web-toggle {
+    margin-left: auto;
+    color: #858585;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    transition: color 0.1s;
+    flex-shrink: 0; /* Keep chevron on the right, no shrink */
+}
+
+.ag-activity-step.ag-web-expandable:hover .ag-badge-web-toggle {
+  color: #fff;
+}
+
+.ag-web-results-inline {
+  width: 100%;
+  margin-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ag-web-results-inline .ai-web-result-row {
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.ag-web-results-inline .ai-web-result-row:last-child {
+  border-bottom: none;
+}
+
+.ag-web-results-inline .ai-web-result-name {
+  font-size: 11px;
+}
+
+.ag-web-results-inline .ai-web-result-url {
+  font-size: 9px;
+}
+
+.ai-web-more {
+  font-size: 10px;
+  padding: 6px 12px;
+  opacity: 0.5;
+  font-style: italic;
+}

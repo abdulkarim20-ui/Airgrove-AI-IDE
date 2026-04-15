@@ -1,0 +1,29 @@
+/* 📄 FILE: src/renderer/components/EditorGroup/EditorHint.css */
+
+.editor-hint-container {
+    color: #858585;
+    font-size: 14px;
+    font-family: 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace;
+    padding-left: 2px;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: 0.8;
+    z-index: 10;
+}
+
+.editor-hint-container .hint-link {
+    color: #4daafc;
+    cursor: pointer;
+    pointer-events: auto;
+    text-decoration: none;
+}
+
+.editor-hint-container .hint-link:hover {
+    text-decoration: underline;
+}
+
+.editor-hint-container .hint-keybinding {
+    color: #aaaaaa;
+    font-style: normal;
+}

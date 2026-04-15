@@ -1,0 +1,45 @@
+/**
+ * CodeBlock.css
+ * Clean, distraction-free code blocks with no headers.
+ */
+
+.ai-code-block {
+  background: #212323; 
+  border-radius: 10px;
+  border: 1px solid #2d2d2d;
+  overflow: hidden;
+  margin: 8px 0; /* Reduced from 16px to half */
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.ai-code-block:hover {
+  border-color: #3d3d3d;
+}
+
+.ai-code-block pre {
+  margin: 0;
+  padding: 12px 14px; /* Balanced, comfortable padding */
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--ai-font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  tab-size: 4;
+  color: #d1d5db;
+}
+
+/* --- Premium Syntax Highlighting --- */
+.token.keyword { color: #569cd6; }    /* Blue */
+.token.string  { color: #ce9178; }    /* Orange/Tan */
+.token.comment { color: #6a9955; }    /* Green */
+.token.function { color: #dcdcaa; }   /* Yellow-ish */
+.token.variable { color: #9cdcfe; }   /* Light Blue */
+.token.constant { color: #4fc1ff; }   /* Cyan */
+.token.tag      { color: #569cd6; }   /* HTML tags */
+.token.attr-name { color: #9cdcfe; }  /* HTML attrs */
+.token.attr-value { color: #ce9178; } /* HTML values */
+.token.number   { color: #b5cea8; }   /* Light Green */
+.token.operator { color: #d4d4d4; }   /* Neutral */
+.token.punctuation { color: #d4d4d4; }

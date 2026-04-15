@@ -1,0 +1,127 @@
+/* search.css - Results Only */
+/* Input styles are handled by style.css to avoid conflicts */
+
+.search-view-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Background and font handled by main/style css mostly, but keeping this safe */
+    color: #cccccc;
+}
+
+.search-results {
+    flex: 1;
+    overflow-y: auto;
+    padding-top: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #535353 transparent;
+}
+
+/* Modern Overlay Scrollbar Setup */
+.search-results::-webkit-scrollbar {
+    width: 10px;
+}
+
+.search-results::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 5px;
+}
+
+/* Show thumb on hover */
+.search-results:hover::-webkit-scrollbar-thumb {
+    background: #535353;
+}
+
+.search-file-node {
+    margin-bottom: 4px;
+}
+
+.search-file-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 2px 4px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #e8e8e8;
+}
+
+.search-file-header:hover {
+    background-color: #2a2d2e;
+}
+
+.search-file-header .codicon {
+    margin-right: 4px;
+    /* Spacing for chevron */
+    font-size: 14px;
+}
+
+/* New File Icon Styles */
+.search-file-header .file-icon-svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    /* Spacing between file icon and text */
+}
+
+/* If file icon is a codicon (e.g. default file), add spacing */
+.search-file-header .codicon+.codicon {
+    margin-right: 6px;
+    font-size: 16px;
+}
+
+.search-count-badge {
+    margin-left: auto;
+    background-color: #4d4d4d;
+    border-radius: 10px;
+    padding: 0 6px;
+    font-size: 11px;
+    color: #ffffff;
+}
+
+.search-matches-container {
+    margin-left: 20px;
+    /* Indent matches */
+}
+
+.search-match-row {
+    cursor: pointer;
+    padding: 2px 4px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #bbbbbb;
+}
+
+.search-match-row:hover {
+    background-color: #37373d;
+}
+
+.no-results {
+    padding: 10px;
+    text-align: center;
+    color: #888;
+}
+
+.search-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px 10px;
+}
+
+.codicon-regex,
+.codicon-case-sensitive,
+.codicon-whole-word {
+    /* Mimic VS Code icons via text or actual font if available */
+    font-style: normal;
+    font-size: 12px;
+    width: 20px;
+    text-align: center;
+    display: inline-block;
+}

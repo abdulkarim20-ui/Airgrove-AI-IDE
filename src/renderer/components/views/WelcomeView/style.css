@@ -1,0 +1,275 @@
+/* 📄 FILE: src/renderer/components/views/WelcomeView/style.css */
+
+#welcome-view-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--bg-editor);
+}
+
+#welcome-view-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Main Content Container - FIXED VERSION */
+.welcome-content {
+    width: 100%;
+    max-width: 580px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 60px 32px;
+    transition: opacity 0.25s ease-out;
+    /* KEY FIX: Ensure content is always centered */
+    margin: auto; /* This centers vertically and horizontally */
+}
+
+/* Hero Section - Centered Logo & Title */
+.welcome-hero {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0px;
+    text-align: center;
+}
+
+.welcome-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    opacity: 0.9;
+}
+
+.welcome-title {
+    font-size: 36px;
+    font-weight: 200;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    letter-spacing: -0.5px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.welcome-tagline {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+/* Action Buttons */
+.welcome-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 369px;
+}
+
+.welcome-actions-row {
+    display: flex;
+    gap: 12px;
+}
+
+.welcome-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 18px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+}
+
+.welcome-actions-row .welcome-btn {
+    flex: 1;
+}
+
+.welcome-btn.full-width {
+    width: 100%;
+}
+
+.welcome-btn i {
+    font-size: 16px;
+    transition: none;
+}
+
+.welcome-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.welcome-btn.primary {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.welcome-btn.primary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+/* Recent Workspaces Section */
+.welcome-recents {
+    width: 100%;
+    max-width: 369px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.recents-header {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 0 4px;
+}
+
+
+/* Recents List */
+.recents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.recent-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    height: 40px;
+    padding: 0 16px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.recent-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.recent-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    opacity: 0.9;
+    flex-shrink: 0;
+}
+
+.recent-icon .file-icon-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.recent-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 0 1 auto;
+}
+
+.recent-path {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.2);
+    margin-left: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: "SF Mono", Monaco, Consolas, monospace;
+    padding-left: 20px;
+}
+
+/* Empty State */
+.recents-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+}
+
+/* Show More Link */
+.show-more-link {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    transition: color 0.2s;
+    user-select: none;
+}
+
+.show-more-link:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* Hidden State */
+#welcome-view-container.hidden {
+    display: none !important;
+}
+
+/* Watermark Mode (When folder is open) */
+#welcome-view-container.watermark {
+    background: transparent;
+    pointer-events: none;
+}
+
+#welcome-view-container.watermark .welcome-actions,
+#welcome-view-container.watermark .welcome-recents,
+#welcome-view-container.watermark .welcome-tagline {
+    display: none !important;
+}
+
+#welcome-view-container.watermark .welcome-hero {
+    opacity: 0.6;
+    filter: grayscale(1);
+    transform: scale(0.9);
+}

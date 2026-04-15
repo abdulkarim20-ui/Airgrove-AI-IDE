@@ -1,0 +1,22 @@
+.image-viewer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: var(--bg-editor); /* Match your editor background */
+    position: relative;
+    outline: none;
+}
+
+.image-preview {
+    transition: transform 0.1s ease-out;
+    max-width: 90%; /* Fit within container */
+    max-height: 90%;
+    object-fit: contain; /* Keeps aspect ratio and fits inside container initially */
+    image-rendering: auto; /* Keeps icons sharp when zooming */
+    user-select: none;
+    -webkit-user-drag: none;
+    transform-origin: center center;
+}

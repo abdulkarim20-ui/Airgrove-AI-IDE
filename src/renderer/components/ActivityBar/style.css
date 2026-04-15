@@ -1,0 +1,95 @@
+#activity-bar-container {
+  width: var(--activity-bar-width);
+  min-width: var(--activity-bar-width);
+  max-width: var(--activity-bar-width);
+  height: 100%;
+  /* UPDATED: It will now fill its grid row automatically */
+  background-color: var(--bg-activity-bar);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  /* Removed padding for tight fit */
+  box-sizing: border-box;
+  /* border-right: 1px solid #444444; REMOVED BORDER */
+}
+
+.action-items-container,
+.action-items-container-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* No gap between items */
+}
+
+.action-item {
+  width: var(--activity-bar-width);
+  height: var(--activity-bar-width);
+  /* Square ratio 40x40 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #858585;
+  /* Precise inactive grey */
+  position: relative;
+  cursor: pointer;
+  transition: color 0.1s ease-in-out;
+  /* Smooth color transition */
+}
+
+/* This rule targets the icon itself */
+#activity-bar-container .action-item .codicon {
+  font-size: 20px !important;
+  /* Precise icon size */
+  opacity: 1;
+}
+
+.action-item:hover {
+  color: #ffffff;
+}
+
+.action-item .activity-icon-svg {
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+  /* Increased base opacity */
+  transition: opacity 0.1s ease-in-out;
+  display: block;
+}
+
+.action-item:hover .activity-icon-svg,
+.action-item.active .activity-icon-svg {
+  opacity: 1;
+}
+
+/* Antigravity UI Active State */
+.action-item.active {
+  color: #ffffff;
+}
+
+/* Create the rounded square background for the active item */
+.action-item.active::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  /* 32px active background size */
+  height: 32px;
+  background-color: #393b3f;
+  /* Precise active background color */
+  border-radius: 6px;
+  /* Slightly more rounded */
+  z-index: -1;
+  /* Place behind the icon */
+}
+
+/* START: ADD THIS RULE */
+#activity-bar-container .action-item[data-view="search"] .codicon {
+  transform: scaleX(-1);
+  /* Flips the icon horizontally */
+}
+
+/* END: ADD THIS RULE */

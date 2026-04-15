@@ -1,0 +1,314 @@
+/* File: src/renderer/components/views/SearchView/style.css
+[REPLACING ALL EXISTING CONTENT]
+*/
+
+/* --- START: NEW STYLES AT THE TOP --- */
+
+/* Hide the generic sidebar header when search is active */
+#primary-sidebar-container:has(#search-view.view.visible)>.sidebar-header {
+    display: none;
+}
+
+/* Make the search-view container fill the entire sidebar */
+#search-view.view.visible {
+    height: 100%;
+}
+
+/* --- END: NEW STYLES AT THE TOP --- */
+
+/* Wrapper for all search content */
+.search-view-container {
+    /* REMOVED: padding: 0 10px; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Using aux-view styles for the collapsible search section */
+.aux-view.search-main-section {
+    font-size: 11px;
+    font-weight: 600;
+    color: #cccccc;
+    user-select: none;
+    /* Ensure it fills the container and structures children vertically */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Ensure child content is visible when expanded */
+.aux-view.search-main-section.expanded .search-view-content {
+    display: flex;
+    /* Changed from block to flex to support full height children */
+}
+
+.aux-view-header.search-view-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 10px;
+    height: 35px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    /* Prevent header from shrinking */
+}
+
+/* --- Restored Header Action Styles --- */
+
+.aux-view-header.search-view-header .codicon {
+    font-size: 18px !important;
+}
+
+.aux-view-header.search-view-header .aux-view-title {
+    flex-grow: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: #cccccc;
+    text-transform: none;
+    /* Sentence case */
+}
+
+.search-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    /* Reduced gap to half */
+}
+
+.search-header-actions .action-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #cccccc;
+    padding: 2px;
+    border-radius: 4px;
+    width: 24px;
+    /* Reduced size for tighter grouping */
+    height: 24px;
+}
+
+.search-header-actions .action-icon .codicon {
+    font-size: 16px !important;
+}
+
+.search-header-actions .action-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Replace Preview: Deleted Text */
+.search-replace-delete {
+    background-color: rgba(160, 26, 26, 0.5);
+    /* VS Code red-ish delete */
+    text-decoration: line-through;
+    color: #ccc;
+    border-radius: 2px 0 0 2px;
+}
+
+/* Replace Preview: Inserted Text */
+.search-replace-insert {
+    background-color: rgba(55, 61, 41, 1);
+    /* VS Code green-ish insert */
+    color: #ccc;
+    /* Or white/brighter? */
+    border-radius: 0 2px 2px 0;
+}
+
+/* Highlight color for search matches within text */
+.search-highlight {
+    background-color: rgba(234, 92, 0, 0.33);
+    /* VS Code orange-ish highlight */
+    color: inherit;
+    border-radius: 2px;
+}
+
+.aux-view-content.search-view-content {
+    font-size: 13px;
+    color: #8f8f8f;
+    font-weight: 400;
+
+    padding: 8px 10px 0 10px;
+
+    /* Ensure it fills the section and constrains the scrollable results */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* --- START: NEW INPUT STYLES --- */
+
+.search-inputs-wrapper {
+    display: flex;
+    gap: 4px;
+    align-items: flex-start;
+    /* Aligns chevron with top input by default */
+}
+
+.search-inputs-wrapper.expanded {
+    align-items: center;
+    /* Centers chevron when both inputs are visible */
+}
+
+#search-replace-toggle {
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 3px;
+    transition: transform 0.1s ease-in-out;
+    margin-top: 2px;
+    /* Aligned with taller input */
+    transform: rotate(0deg);
+}
+
+#search-replace-toggle.expanded {
+    transform: rotate(90deg);
+    margin-top: 5px;
+    /* Center it between the two inputs */
+}
+
+#search-replace-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.inputs-column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+.search-input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.replace-input-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+}
+
+.replace-input-container.hidden {
+    display: none;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    /* Make wrapper grow to fill space */
+}
+
+.search-input,
+.replace-input {
+    width: 100%;
+    background-color: #3C3C3C;
+    border: 1px solid #4d4d4d;
+    /* More visible border like in reference */
+    color: #cccccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.search-input {
+    padding: 2px 80px 2px 6px;
+    min-height: 26px;
+}
+
+.replace-input {
+    padding: 2px 30px 2px 6px;
+    min-height: 26px;
+}
+
+.search-input:focus,
+.replace-input:focus {
+    outline: 1px solid #007acc;
+}
+
+/* --- Action icons INSIDE the input --- */
+.input-actions,
+.input-actions.internal {
+    display: flex;
+    gap: 4px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input-actions .codicon,
+.input-actions.internal .codicon {
+    cursor: pointer;
+    border-radius: 2px;
+    color: #ccc;
+    font-size: 16px !important;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-actions .codicon:hover,
+.input-actions.internal .codicon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.input-actions .codicon.active,
+.input-actions.internal .codicon.active {
+    background-color: #094771;
+    color: white;
+}
+
+/* --- Replace All Button (External) --- */
+.replace-actions {
+    display: flex;
+    align-items: center;
+}
+
+.replace-all-action {
+    font-size: 16px;
+    color: #cccccc;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 3px;
+    /* Optional: Ensure it matches other buttons */
+}
+
+.replace-all-action:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- END: NEW INPUT STYLES --- */
+
+/* --- No Folder Message --- */
+.search-no-folder-message {
+    display: flex;
+    align-items: flex-start;
+    /* MODIFIED: Removed justify-content */
+    font-size: 13px;
+    color: #8f8f8f;
+    line-height: 1.5;
+    padding: 8px 0 0 0;
+    /* MODIFIED: Removed horizontal padding as parent has it */
+}
+
+.search-no-folder-message a {
+    color: #3794FF;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.search-no-folder-message a:hover {
+    text-decoration: underline;
+}
+
+/* REMOVED: Styles for the ellipsis icon in this section are gone */

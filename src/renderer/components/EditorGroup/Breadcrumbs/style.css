@@ -1,0 +1,57 @@
+/* 📄 FILE: src/renderer/components/EditorGroup/Breadcrumbs/style.css */
+
+#breadcrumbs-container {
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    height: 28px;
+    background-color: #1a1b1d;
+    color: #cccccc;
+    padding: 0 10px;
+    flex-shrink: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#breadcrumbs-container::-webkit-scrollbar {
+    display: none;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #8f8f8f;
+    cursor: default;
+    padding: 2px 4px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.breadcrumb-item:hover {
+    background-color: #2a2d2e;
+}
+
+.breadcrumb-item:last-child {
+    color: #cccccc;
+}
+
+.breadcrumb-item .codicon {
+    font-size: 16px;
+}
+
+/* --- START: ADD THIS NEW RULE --- */
+.breadcrumb-item .file-icon-svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- END: ADD THIS NEW RULE ---
+
+.breadcrumb-separator {
+    font-size: 12px;
+    color: #8f8f8f;
+    margin: 0 4px;
+}

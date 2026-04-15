@@ -1,0 +1,118 @@
+/* Mention Drop-up Menu - Modular Styling */
+.ai-mention-menu {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background-color: #202124;
+    border: 1px solid #323336;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    z-index: 2000;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 6px 0;
+    animation: menu-pop 0.2s ease-out;
+}
+
+@keyframes menu-pop {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.ai-mention-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+}
+
+.ai-mention-item:hover,
+.ai-mention-item.selected {
+    background-color: #2d2e31;
+}
+
+.ai-mention-item i {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cccccc;
+}
+
+.ai-mention-item .item-icon-img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.ai-mention-item .item-name {
+    font-size: 13px;
+    color: #eeeeee;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ai-mention-item .item-path {
+    font-size: 11px;
+    color: #888888;
+    margin-left: 8px;
+}
+
+.ai-mention-section-header {
+    padding: 8px 12px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #5c5c5c;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    margin-bottom: 4px;
+}
+
+/* Matching highlighting */
+.mention-highlight {
+    color: #4da6ff;
+    /* Premium Blue color for highlighting matched text */
+    font-weight: 600;
+    background-color: rgba(77, 166, 255, 0.15);
+    border-radius: 2px;
+    padding: 0 1px;
+}
+
+.ai-mention-item.selected .mention-highlight {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.ai-mention-item.selected .item-name {
+    color: #ffffff;
+}
+
+/* --- Performance Optimization & Scrollbar --- */
+.ai-mention-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ai-mention-menu::-webkit-scrollbar-thumb {
+    background: #3a3b3e;
+    border-radius: 10px;
+}
+
+.ai-mention-menu::-webkit-scrollbar-thumb:hover {
+    background: #4a4b4e;
+}
