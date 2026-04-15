@@ -182,6 +182,34 @@ Choose your AI model based on your needs - from Kimi K2.5 for speed to Nemotron 
 
 ---
 
+## 🤖 AI Tool in Action
+
+Watch the AI agent work in real-time. This GIF demonstrates how seamlessly AirGrove integrates code editing, live preview, and AI reasoning in a unified environment.
+
+<div align="center">
+<img src="assets/demos/ai-tool-in-action.gif" alt="AI Tool in Action - Live Development Demo" width="1000" />
+<p><em>Real-world example: Developer builds a portfolio website. Left: File explorer and code editor. Center: Live preview rendering. Right: AI agent panel providing analysis, suggestions, and task automation. The AI synthesizes context from code, UI, and user intent to provide intelligent assistance.</em></p>
+</div>
+
+**What You're Seeing:**
+1. 📁 **Project Structure** (Left): Portfolio website project loaded in AirGrove
+2. 💻 **Code Editor** (Center): HTML/CSS being edited with syntax highlighting and inline hints
+3. 🎨 **Live Preview** (Center-Right): Real-time rendering of the website as you code
+4. 🧠 **AI Agent Panel** (Right): 
+   - Shows project context and suggestions
+   - Analyzes code quality and improvements
+   - Provides intelligent task automation
+   - Displays real-time reasoning and decisions
+5. 📊 **Terminal** (Bottom): Shows command execution and build processes
+
+**The Magic:**
+- Every keystroke in the editor updates the live preview instantly
+- Click any UI element to select it and get code references
+- AI suggests improvements based on your code patterns
+- All synchronized across editor, preview, and agent panel
+
+---
+
 ## ⚡ How It Works (Execution Flow)
 
 ```
