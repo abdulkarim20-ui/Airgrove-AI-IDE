@@ -111,13 +111,24 @@ AirGrove is equipped with **13+ specialized autonomous tools** that enable the A
 
 ## 📸 Visual Demonstrations
 
+### 🎬 Interactive Element Selection & Modification (Live GIF)
+
+Watch how seamlessly you can select UI elements in the live preview and modify them through AI chat. Click, select, and refactor instantly.
+
+<div align="center">
+<img src="assets/demos/element-selection-demo.gif" alt="Interactive Element Selection Demo - GIF" width="1000" />
+<p><em>Live demo: Click UI elements → Get highlighted in code → Ask AI to modify → Watch changes update in real-time</em></p>
+</div>
+
+---
+
 ### Smart Preview with Live Element Selection
 
 AirGrove's embedded browser lets you **click any UI element** and instantly see the corresponding code. Select elements visually, then ask the AI to modify them.
 
 <div align="center">
 <img src="assets/demos/smart-preview-element-selection.png" alt="Smart Preview with Element Selection" width="1000" />
-<p><em>Live Preview Browser - Click on the "Couture Dress" product to highlight in code. AI panel shows "Selected element: &lt;a cta-link&gt;" with styling analysis</em></p>
+<p><em>Live Preview Browser - Click on UI elements to highlight in code. AI panel shows element details and styling analysis</em></p>
 </div>
 
 ---
@@ -128,7 +139,7 @@ Full Monaco editor with code intelligence, AI reasoning panel, and real-time lin
 
 <div align="center">
 <img src="assets/demos/code-editor-luxarme.png" alt="Code Editor with Analysis - Luxarme Website" width="1000" />
-<p><em>Luxarme luxury website being edited - index.html open with styling analysis. The right panel shows "Edited" status and AI reasoning</em></p>
+<p><em>Luxarme luxury website being edited - index.html open with styling analysis. The right panel shows AI reasoning and code improvements</em></p>
 </div>
 
 ---
@@ -139,7 +150,7 @@ Build entire projects without leaving AirGrove. See financial dashboards rendere
 
 <div align="center">
 <img src="assets/demos/finance-dashboard-readme.png" alt="Finance Dashboard Development" width="1000" />
-<p><em>Finance Dashboard UI project - README displayed with project structure. AI showing task completion with "make the readme file for this src project"</em></p>
+<p><em>Finance Dashboard UI project - Complete development environment with code editor, live preview, and AI assistant panel</em></p>
 </div>
 
 ---
@@ -520,6 +531,44 @@ Ask AirGrove to **"Build a React dashboard with authentication, API integration,
 - **Fix It**: AI finds related code using `grep_tool` and proposes fixes
 - **Verify It**: Live preview shows the corrected UI
 - **Learn It**: Screenshot-driven debugging with visual context
+
+---
+
+## 🎬 Full Workflow in Action
+
+### Complete Development Environment
+
+Experience the seamless integration between code editor and live browser preview. Edit your HTML/CSS and see changes instantly reflected in the live preview.
+
+<div align="center">
+<img src="assets/demos/workflow-full-editor.png" alt="Full Development Workflow" width="1000" />
+<p><em>Complete AirGrove environment: File explorer (left) + Monaco code editor (center) + Live preview browser (right) + AI reasoning panel (far right) - All synchronized in real-time</em></p>
+</div>
+
+**What's Visible:**
+- 📁 **Left Panel**: Project file explorer with complete website structure
+- 💻 **Center**: Monaco editor editing HTML/CSS with full syntax highlighting
+- 🎨 **Preview Window**: Live rendering showing the designed website
+- 🤖 **Right Panel**: AI agent analyzing code and providing suggestions
+
+---
+
+### Interactive Element Selection & Live Modification
+
+Click any element in the live preview to select it, see it highlighted in the code, and describe what you want to change to the AI.
+
+<div align="center">
+<img src="assets/demos/workflow-element-selection.png" alt="Interactive Element Selection Workflow" width="1000" />
+<p><em>Hover over UI elements in preview → Click to select → AI shows element details and file location → Ask for modifications → Code updates instantly</em></p>
+</div>
+
+**Your Development Flow:**
+1. 👁️ **Visualize**: See the rendered UI in the live browser
+2. 🖱️ **Select**: Click any element to highlight it in the code
+3. 💬 **Communicate**: Ask AI: *"Make this button green"* or *"Fix the padding"*
+4. ⚡ **Update**: Watch code update in the editor
+5. ✨ **Verify**: See changes instantly reflected in the preview
+6. 🔄 **Refine**: Repeat until perfect
 
 ---
 
